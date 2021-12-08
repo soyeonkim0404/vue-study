@@ -1,0 +1,190 @@
+<template>
+  <div class="wrap">
+    <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
+      <ul class="list">
+        <li v-for="(item, index) in list.word" :key="index">
+          <listBtn :item="item" />
+          <span
+              v-if="listIndex !== 0"
+              @click="moveLeft(listIndex, index)"
+              class="icon-left"
+          >
+            <font-awesome-icon icon="angle-left" />
+          </span>
+          <span
+              v-if="listIndex !== lists.length - 1"
+              @click="moveRight(listIndex, index)"
+              class="icon-right"
+          >
+            <font-awesome-icon icon="angle-right" />
+          </span>
+          <!--위아래-->
+          <span class="icon-dup" @click="moveDUp(listIndex, index)">
+            <font-awesome-icon icon="angle-double-up" />
+          </span>
+          <span class="icon-up" @click="moveUp(listIndex, index)">
+            <font-awesome-icon icon="angle-up" />
+          </span>
+          <span class="icon-down" @click="moveDown(listIndex, index)">
+            <font-awesome-icon icon="angle-down" />
+          </span>
+          <span class="icon-ddown" @click="moveDDown(listIndex, index)">
+            <font-awesome-icon icon="angle-double-down" />
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+import listBtn from '../components/listBtn';
+
+export default {
+  name: 'array',
+  components: { listBtn },
+  data() {
+    return {
+      lists: [
+        {
+          name: 'array1',
+          word: [
+            { key: 1, val: '딸기' },
+            { key: 2, val: '바나나' },
+            { key: 3, val: '샤인머스켓' },
+            { key: 4, val: '파인애플' },
+            { key: 5, val: '딸기' },
+          ],
+        },
+        {
+          name: 'array2',
+          word: [
+            { key: 1, val: 'Gray' },
+            { key: 2, val: 'Red' },
+            { key: 3, val: 'Pink' },
+            { key: 4, val: 'Grape' },
+            { key: 5, val: 'Violet' },
+            { key: 6, val: 'Blue' },
+          ],
+        },
+      ],
+    };
+  },
+  methods: {
+    moveLeft(listIndex, index) {
+      const item = this.lists[listIndex].word[index];
+      this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex - 1].word.push(item);
+    },
+    moveRight(listIndex, index) {
+      const item = this.lists[listIndex].word[index];
+      this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex + 1].word.push(item);
+    },
+    moveDUp(listIndex, index) {
+      const item = this.lists[listIndex].word[index];
+      this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.unshift(item);
+    },
+    moveUp(listIndex, index) {
+      const item = this.lists[listIndex].word[index];
+      let newPos = index - 1;
+      this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.splice(newPos, 0, item);
+    },
+    moveDown(listIndex, index) {
+      const item = this.lists[listIndex].word[index];
+      let newPos = index + 1;
+      this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.splice(newPos, 0, item);
+    },
+    moveDDown(listIndex, index) {
+      const item = this.lists[listIndex].word[index];
+      this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.push(item);
+    },
+  },
+};
+</script>
+
+<style scoped>
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.lists + .lists {
+  margin-left: 40px;
+}
+
+.lists:nth-child(2) li button {
+  background: #d0ebff;
+}
+
+.lists:nth-child(2) li:hover button {
+  background: #a5d8ff;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  position: relative;
+  list-style: none;
+}
+
+li + li {
+  margin-top: 10px;
+}
+
+span[class^='icon'] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  color: #444;
+  display: none;
+}
+
+span.icon-right {
+  right: 0;
+}
+
+span.icon-left {
+  left: 0;
+}
+
+span.icon-dup {
+  left: 40px;
+}
+
+span.icon-up {
+  left: 80px;
+}
+
+span.icon-down {
+  right: 80px;
+}
+span.icon-ddown {
+  right: 40px;
+}
+
+li:hover span[class^='icon'] {
+  display: flex;
+}
+</style>

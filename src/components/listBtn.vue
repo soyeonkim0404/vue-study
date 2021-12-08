@@ -1,10 +1,10 @@
 <template>
   <button
-      :class="{
+    :class="{
       array: true,
     }"
-      type="button"
-      @click="$emit('clickChangeBtn')"
+    type="button"
+    @click="$emit('clickChangeBtn')"
   >
     {{ this.item.val }}
   </button>

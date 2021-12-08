@@ -5,16 +5,16 @@
         <li v-for="(item, index) in list.word" :key="index">
           <listBtn :item="item" />
           <span
-              v-if="listIndex !== 0"
-              @click="moveLeft(listIndex, index)"
-              class="icon-left"
+            v-if="listIndex !== 0"
+            @click="moveLeft(listIndex, index)"
+            class="icon-left"
           >
             <font-awesome-icon icon="angle-left" />
           </span>
           <span
-              v-if="listIndex !== lists.length - 1"
-              @click="moveRight(listIndex, index)"
-              class="icon-right"
+            v-if="listIndex !== lists.length - 1"
+            @click="moveRight(listIndex, index)"
+            class="icon-right"
           >
             <font-awesome-icon icon="angle-right" />
           </span>

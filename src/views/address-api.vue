@@ -1,113 +1,120 @@
 <template>
   <div id="api">
     <div class="content">
-      <button class="modalBtn" @click="openModal">내주소는?</button>
+      <button class="modalBtn" @click="showModal = true">내주소는?</button>
       <!--출력 인풋-->
       <div class="result">
         <input
-            type="text"
-            name="zipNo"
-            v-model="resultZip"
-            class="result-ipt zip"
+          type="text"
+          name="zipNo"
+          v-model="resultZip"
+          class="result-ipt zip"
         />
         <input
-            type="text"
-            name="roadAddrPart1"
-            v-model="resultAddr"
-            class="result-ipt"
+          type="text"
+          name="roadAddrPart1"
+          v-model="resultAddr"
+          class="result-ipt"
         />
       </div>
-      <!--모달-->
-      <transition name="modal" appear @close="closeModal" v-if="modal">
-        <div class="modal modal-overlay" @click.self="closeModal">
-          <div class="modal-window">
-            <div class="modal-content">
-              <form name="form" id="form" method="post">
-                <input type="text" name="keyword" value="" v-model="keyword" @keyup.enter="onClickSh(keyword)"/>
-                <input type="button" value="주소검색하기" @click="onClickSh"/>
-              </form>
-              <!--리스트-->
-              <div id="list">
-                <ul>
-                  <li v-for="(item, index) in datasJuso" :key="index" :current-page="currentPage">
-                    <button @click="resultPush(item)">
-                      <span>
-                        {{ item.zipNo }}
-                      </span>
-                      <span>
-                        {{ item.roadAddrPart1 }}
-                      </span>
-                    </button>
-                  </li>
-                </ul>
-                <b-pagination
-                    v-model="currentPage"
-                    :total-rows="rows"
-                    aria-controls="list"
-                    @change="handlePageChange"
-                ></b-pagination>
 
-              </div>
-            </div>
+      <Modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">주소 검색</h3>
+        <div slot="body">
+          <form name="form" id="form" method="post">
+            <input
+              type="text"
+              name="keyword"
+              value=""
+              v-model="keyword"
+              @keyup.enter="onClickSh(keyword)"
+            />
+            <input type="button" value="주소검색하기" @click="onClickSh" />
+          </form>
+
+          <!--리스트-->
+          <div id="list">
+            <ul class="jusoList">
+              <li
+                v-for="(item, index) in datasJuso"
+                :key="index"
+                :current-page="currentPage"
+              >
+                <button @click="resultPush(item)">
+                  <span>
+                    {{ item.zipNo }}
+                  </span>
+                  <span>
+                    {{ item.roadAddrPart1 }}
+                  </span>
+                </button>
+              </li>
+            </ul>
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              aria-controls="list"
+              @change="handlePageChange"
+            />
           </div>
         </div>
-      </transition>
+      </Modal>
     </div>
   </div>
 </template>
 
 <script>
-import {searchApi} from "../api/index.js";
+import { searchApi } from '@/api';
+import Modal from '../components/modal';
 export default {
   name: 'address-api',
-  data: function() {
+  components: {
+    Modal,
+  },
+  data: function () {
     return {
       datasJuso: [],
       datasCommon: [],
-      keyword: "",
+      keyword: '',
       resultZip: '',
       resultAddr: '',
-      modal: false,
-      totalCount:'',
+      totalCount: '',
       currentPage: 1,
+      showModal: false,
     };
   },
-  computed:{
-    rows(){
-      return this.totalCount
-    }
+  computed: {
+    rows() {
+      return this.totalCount;
+    },
   },
   methods: {
     async onClickSh() {
-      const data= {
+      const data = {
         keyword: this.keyword,
-        currentPage: this.currentPage
-      }
+        currentPage: this.currentPage,
+      };
       try {
-        const {data:{results : res}} = await searchApi(data);
+        const {
+          data: { results: res },
+        } = await searchApi(data);
         this.datasJuso = res.juso;
         this.datasCommon = res.common;
         this.totalCount = this.datasCommon.totalCount;
-      }catch (error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     },
     resultPush(v) {
       this.resultZip = v.zipNo;
       this.resultAddr = v.roadAddrPart1;
-      this.closeModal()
-    },
-    openModal() {
-      this.modal = true;
-    },
-    closeModal() {
-      this.modal = false;
+      this.showModal = false;
     },
     handlePageChange(value) {
       this.currentPage = value;
       this.onClickSh();
     },
-  }
+  },
 };
 </script>
 
@@ -122,16 +129,17 @@ export default {
 
 form input {
   display: inline-block;
-  width: 250px;
-  height: 40px;
+  width: 300px;
+  height: 50px;
   padding: 0 10px;
   margin: 0;
   box-sizing: border-box;
+  vertical-align: middle;
 }
 
-form input[type="button"] {
-  width: 100px;
-  height: 40px;
+form input[type='button'] {
+  width: 200px;
+  height: 50px;
   outline: none;
   padding: 0;
   box-sizing: border-box;
@@ -162,77 +170,6 @@ input {
   margin-top: 10px;
 }
 
-/*모달*/
-.modalBtn {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-  border: none;
-  background: #91a7ff;
-  font-weight: bold;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.modal.modal-overlay {
-  position: fixed;
-  z-index: 30;
-  background: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.modal-window {
-  width: 570px;
-  height: 420px;
-  background: #fff;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.modal-content {
-  padding: 10px 20px;
-}
-
-.modal-footer {
-  background: #ccc;
-  padding: 10px;
-  text-align: right;
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.4s;
-}
-
-.modal-enter-active .modal-window,
-.modal-leave-active .modal-window {
-  transition: opacity 0.4s, transform 0.4s;
-}
-
-.modal-leave-active {
-  transition: opacity 0.6s ease 0.4s;
-}
-
-.modal-enter,
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter .modal-window,
-.modal-leave-to .modal-window {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
 .btn-cover {
   margin-top: 1.5rem;
   text-align: center;
@@ -244,5 +181,42 @@ input {
 }
 .btn-cover .page-count {
   padding: 0 1rem;
+}
+
+.b-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#list {
+  margin-top: 20px;
+}
+.jusoList {
+  padding: 0;
+  margin: 0;
+}
+
+.jusoList li + li {
+  margin-top: 10px;
+}
+
+.jusoList li button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+}
+
+.jusoList li button:hover {
+  opacity: 0.4;
+}
+
+.modalBtn {
+  width: 250px;
+  height: 50px;
+  background: #d0bfff;
+  border: none;
 }
 </style>

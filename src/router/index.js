@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/home.vue';
 import Array from '../views/array.vue';
 import AddressApi from '../views/address-api.vue';
+import InputStudy from '../views/input-study.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,10 @@ export const router = new VueRouter({
     {
       path: '/addressApi',
       component: AddressApi,
+    },
+    {
+      path: '/inputStudy',
+      component: InputStudy,
     },
   ],
 });

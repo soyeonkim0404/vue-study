@@ -108,13 +108,6 @@ export default {
 </script>
 
 <style scoped>
-.wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
 button {
   border: none;
   cursor: pointer;

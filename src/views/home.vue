@@ -3,6 +3,7 @@
     <ul class="main-list">
       <router-link to="/array" tag="li">array methods</router-link>
       <router-link to="/addressApi" tag="li">address-api</router-link>
+      <router-link to="/inputStudy" tag="li">input-study</router-link>
     </ul>
   </div>
 </template>

@@ -118,7 +118,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #api {
   display: flex;
   justify-content: center;

@@ -10,15 +10,4 @@ export default {
 };
 </script>
 
-<style>
-body,
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-li {
-  list-style: none;
-}
-</style>
+<style lang="scss" src="./assets/scss/common.scss" />

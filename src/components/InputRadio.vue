@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <ul class="input-radio">
-      <li v-for="(item, index) in items" :key="index">
-        <label :for="item.value" :class="{ checked: item.value === chkVal }">
-          <input
-            type="radio"
-            :id="item.value"
-            :name="item.name"
-            v-bind="$attrs"
-            @change="onChange(item.value)"
-          />
-          <span>{{ item.label }}</span>
-        </label>
-      </li>
-    </ul>
-  </div>
+  <ul class="input-radio">
+    <li v-for="(item, index) in items" :key="index">
+      <label :for="item.value" :class="{ checked: item.value === chkVal }">
+        <input
+          type="radio"
+          :id="item.value"
+          :name="item.name"
+          v-bind="$attrs"
+          @change="onChange(item.value)"
+        />
+        <span>{{ item.label }}</span>
+      </label>
+    </li>
+  </ul>
 </template>
 
 <script>

@@ -1,40 +1,76 @@
 <template>
-  <ul class="input-checkbox">
-    <li v-for="(item, index) in items" :key="index">
-      <label :for="item.value" :class="{ checked: item.value === chkVal }">
-        <input
-          type="checkbox"
-          :value="item.value"
-          v-bind="$attrs"
-          @change="onChange(item.value)"
-        />
-        <i class="icon"></i>
-        <span>{{ item.label }}</span>
-      </label>
-    </li>
-  </ul>
+  <label
+    :class="{
+      checkedStyle: chkWeekday.some((el) => {
+        return el === value;
+      }),
+    }"
+  >
+    <input
+      type="checkbox"
+      v-bind="$attrs"
+      :value="value"
+      :checked="
+        chkWeekday.some((el) => {
+          return el === value;
+        })
+      "
+      @change="onChange(value)"
+    />
+    <span><slot></slot></span>
+  </label>
 </template>
-
 <script>
 export default {
   name: 'InputCheckbox',
-  props: ['items'],
+  props: ['chkWeekday', 'value'],
   inheritAttrs: false,
   model: {
-    prop: 'value',
-    event: 'change',
-  },
-  data() {
-    return {
-      chkVal: [],
-    };
+    prop: 'chkWeekday',
+    event: 'checkCheck',
   },
   methods: {
     onChange(val) {
-      this.$emit('change', val);
+      const idx = this.chkWeekday.indexOf(val);
+      if (idx === -1) {
+        this.chkWeekday.push(val);
+      } else {
+        this.chkWeekday.splice(idx, 1);
+      }
+      this.$emit('checkCheck', this.chkWeekday);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.buttonStyle {
+  position: relative;
+  display: flex;
+  width: 140px;
+  height: 50px;
+  padding: 15px 22px;
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: solid 1px #ffa8a8;
+  justify-content: center;
+  input {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;
+    color: #ffa8a8;
+  }
+  &.checked {
+    border: solid 1px #ff8787;
+    background: #ff8787;
+    span {
+      color: #fff;
+    }
+  }
+}
+</style>

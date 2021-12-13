@@ -1,27 +1,44 @@
 <template>
   <div class="wrap">
     <div class="page-title">checkbox buttons</div>
+    <!--
+    HTML 입력 요소의 종류에 따라 `v-model` 속성이 각각 다음과 같이 구성됩니다.
+    (1) input 태그에는 `value / input`
+    (2) checkbox 태그에는 `checked / change`
+    (3) select 태그에는 `value / change`
+    -->
+    <label>
+      <input type="checkbox" v-model="chkbox_allChk" @click="allChkBtn" />
+      <span>전체</span>
+    </label>
+    <ul>
+      <li v-for="(item, index) in weekDayItems" :key="index">
+        <InputCheckbox
+          v-model="weekDay"
+          :value="item.value"
+          @checkCheck="chkItem"
+        >
+          {{ item.label }}
+        </InputCheckbox>
+      </li>
+    </ul>
 
     <label>
-      <input type="checkbox" v-model="select_all" @click="select" />
-      Select All
+      <input type="checkbox" v-model="chkbox_allChk" @click="allChkBtn" />
+      <span>전체</span>
     </label>
-
-    <InputCheckbox v-model="weekDay" :items="weekDayItems" />
-    <!--    <ul>
+    <ul>
       <li v-for="(item, index) in weekDayItems" :key="index">
-        <label>
-          <input
-            type="checkbox"
-            :value="item.value"
-            v-model="weekDay"
-            @change="sel"
-          />
-          <i></i>
-          <span>{{ item.label }}</span>
-        </label>
+        <InputCheckbox
+          v-model="weekDay"
+          :value="item.value"
+          @checkCheck="chkItem"
+          class="buttonStyle"
+        >
+          {{ item.label }}
+        </InputCheckbox>
       </li>
-    </ul>-->
+    </ul>
 
     <div class="page-title">radio buttons</div>
     <InputRadio v-model="gender" :items="genderItems" />
@@ -72,7 +89,6 @@ export default {
           name: 'fruitChk',
         },
       ],
-      select_all: false,
       weekDay: [],
       weekDayItems: [
         {
@@ -87,7 +103,7 @@ export default {
           label: '수',
           value: 'wednesday',
         },
-        /*{
+        {
           label: '목',
           value: 'thursday',
         },
@@ -102,28 +118,28 @@ export default {
         {
           label: '일',
           value: 'sunday',
-        },*/
+        },
       ],
+      chkbox_allChk: false,
     };
   },
   methods: {
-    select() {
+    allChkBtn() {
       this.weekDay = [];
-      if (!this.select_all) {
+      if (!this.chkbox_allChk) {
         this.weekDayItems.forEach((e) => {
           this.weekDay.push(e.value);
         });
       }
     },
-    sel() {
+    chkItem() {
       if (
         this.weekDay.length === this.weekDayItems.length &&
-        !this.select_all
+        !this.chkbox_allChk
       ) {
-        //this.select();
-        this.select_all = true;
+        this.chkbox_allChk = true;
       } else {
-        this.select_all = false;
+        this.chkbox_allChk = false;
       }
     },
   },

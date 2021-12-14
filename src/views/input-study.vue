@@ -1,23 +1,10 @@
 <template>
   <div class="wrap">
     <div class="page-title">checkbox buttons</div>
-    <!--custom style-->
-    <!--    <InputAllCheckbox
-      v-model="weekDayItems.week_allChk"
-      :weekDay="weekDayItems.weekDay"
-      :item="weekDayItems.option"
-    >
-      전체
-    </InputAllCheckbox>-->
 
     <label>
-      <input
-        type="checkbox"
-        v-model="weekDayItems.week_allChk"
-        @click="chkAll"
-        @change="chkWeek"
-      />
-      <span>전체</span>
+      <input type="checkbox" v-model="weekDayItems.week_allChk" @click="allChkBtn"/>
+      <span>전체 체크</span>
     </label>
 
     <ul class="custom-chk">
@@ -26,7 +13,7 @@
           v-model="weekDayItems.weekDay"
           :value="item.value"
           class="buttonStyle"
-          @checkCheck="ddd"
+          @checkCheck="allChkOnChange(weekDayItems)"
         >
           {{ item.label }}
         </InputCheckbox>
@@ -64,14 +51,12 @@
 <script>
 import InputRadio from '../components/InputRadio';
 import InputCheckbox from '../components/InputCheckbox';
-//import InputAllCheckbox from '../components/InputAllCheckbox';
 
 export default {
   name: 'input-study',
   components: {
     InputRadio,
     InputCheckbox,
-    //InputAllCheckbox,
   },
   data() {
     return {
@@ -80,12 +65,12 @@ export default {
         option: [
           {
             label: '남자',
-            value: '남자',
+            value: 'man',
             name: 'genderChk',
           },
           {
             label: '여자',
-            value: '여자',
+            value: 'woman',
             name: 'genderChk',
           },
         ],
@@ -126,54 +111,42 @@ export default {
             label: '수',
             value: 'wednesday',
           },
-          {
-            label: '목',
-            value: 'thursday',
-          },
-          {
-            label: '금',
-            value: 'friday',
-          },
-          {
-            label: '토',
-            value: 'saturday',
-          },
-          {
-            label: '일',
-            value: 'sunday',
-          },
+          // {
+          //   label: '목',
+          //   value: 'thursday',
+          // },
+          // {
+          //   label: '금',
+          //   value: 'friday',
+          // },
+          // {
+          //   label: '토',
+          //   value: 'saturday',
+          // },
+          // {
+          //   label: '일',
+          //   value: 'sunday',
+          // },
         ],
       },
     };
   },
   methods: {
-    chkAll() {
+    allChkBtn(){
       this.weekDayItems.weekDay = [];
-      if (!this.week_allChk) {
+      if (!this.weekDayItems.week_allChk) {
         this.weekDayItems.option.forEach((e) => {
           this.weekDayItems.weekDay.push(e.value);
         });
       }
     },
-    chkWeek() {
-      if (
-        this.weekDayItems.weekDay.length === this.weekDayItems.option.length &&
-        !this.week_allChk
-      ) {
-        this.week_allChk = true;
-      } else {
-        this.week_allChk = false;
+    allChkOnChange(el){
+      if(el.option.length === el.weekDay.length){
+        el.week_allChk = true;
+      }else{
+        el.week_allChk = false;
       }
-    },
-    ddd(el) {
-      if (el.length === this.weekDayItems.option.length && !this.week_allChk) {
-        console.log('dddd');
-        this.week_allChk = true;
-      } else {
-        console.log('saaa');
-        this.week_allChk = false;
-      }
-    },
+    }
   },
 };
 </script>
@@ -188,13 +161,28 @@ export default {
   }
 }
 
+ul{
+  padding:0;
+  margin: 20px 0 0 0;
+  li{
+    display: inline-flex;
+    & + li{
+      margin-left: 20px;
+    }
+  }
+}
+
 .custom-chk {
+  margin:0;
   li {
     display: inline-flex;
     &:first-child {
       label {
         border-left: solid 1px #ffa8a8;
       }
+    }
+    & + li{
+      margin: 0;
     }
   }
 }

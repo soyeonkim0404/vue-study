@@ -78,7 +78,7 @@ label {
     padding: 0;
     color: #ffa8a8;
   }
-  &.checked {
+  &.chked {
     border: solid 1px #ff8787;
     background: #ff8787;
     span {

@@ -47,13 +47,14 @@ export default {
 .buttonStyle {
   position: relative;
   display: flex;
-  width: 140px;
+  width: 50px;
   height: 50px;
   padding: 15px 22px;
   box-sizing: border-box;
-  border-radius: 25px;
   border: solid 1px #ffa8a8;
+  border-left: none;
   justify-content: center;
+  align-items: center;
   input {
     position: absolute;
     left: -9999px;
@@ -65,7 +66,7 @@ export default {
     padding: 0;
     color: #ffa8a8;
   }
-  &.checked {
+  &.checkedStyle {
     border: solid 1px #ff8787;
     background: #ff8787;
     span {

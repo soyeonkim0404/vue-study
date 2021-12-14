@@ -1,38 +1,28 @@
 <template>
-  <ul class="input-radio">
-    <li v-for="(item, index) in items" :key="index">
-      <label :for="item.value" :class="{ checked: item.value === chkVal }">
-        <input
-          type="radio"
-          :id="item.value"
-          :name="item.name"
-          v-bind="$attrs"
-          @change="onChange(item.value)"
-        />
-        <span>{{ item.label }}</span>
-      </label>
-    </li>
-  </ul>
+  <label :class="{ chked: val === value }">
+    <input
+      type="radio"
+      v-bind="$attrs"
+      :name="name"
+      :value="val"
+      @change="onChange"
+    />
+    <span><slot></slot></span>
+  </label>
 </template>
 
 <script>
 export default {
   name: 'InputRadio',
-  props: ['items'],
+  props: ['value', 'val', 'name'],
   inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'change',
   },
-  data() {
-    return {
-      chkVal: '',
-    };
-  },
   methods: {
-    onChange(val) {
-      this.chkVal = val;
-      this.$emit('change', val);
+    onChange() {
+      this.$emit('change', this.val);
     },
   },
 };
@@ -62,39 +52,37 @@ label {
     font-size: 2.5rem;
     padding-left: 10px;
   }
-  &.checked {
+  &.chked {
     background: yellow;
   }
 }
 
 .buttonStyle {
-  label {
-    position: relative;
-    display: flex;
-    width: 140px;
-    height: 50px;
-    padding: 15px 22px;
-    box-sizing: border-box;
-    border-radius: 25px;
-    border: solid 1px #ffa8a8;
-    justify-content: center;
-    input {
-      position: absolute;
-      left: -9999px;
-      opacity: 0;
-    }
+  position: relative;
+  display: flex;
+  width: 140px;
+  height: 50px;
+  padding: 15px 22px;
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: solid 1px #ffa8a8;
+  justify-content: center;
+  input {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;
+    color: #ffa8a8;
+  }
+  &.checked {
+    border: solid 1px #ff8787;
+    background: #ff8787;
     span {
-      font-size: 16px;
-      font-weight: bold;
-      padding: 0;
-      color: #ffa8a8;
-    }
-    &.checked {
-      border: solid 1px #ff8787;
-      background: #ff8787;
-      span {
-        color: #fff;
-      }
+      color: #fff;
     }
   }
 }

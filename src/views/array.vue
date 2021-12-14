@@ -59,12 +59,13 @@ export default {
         {
           name: 'array2',
           word: [
-            { key: 1, val: 'Gray' },
-            { key: 2, val: 'Red' },
-            { key: 3, val: 'Pink' },
-            { key: 4, val: 'Grape' },
-            { key: 5, val: 'Violet' },
-            { key: 6, val: 'Blue' },
+            { key: 1, val: '월' },
+            { key: 2, val: '화' },
+            { key: 3, val: '수' },
+            { key: 4, val: '목' },
+            { key: 5, val: '금' },
+            { key: 6, val: '토' },
+            { key: 7, val: '일' },
           ],
         },
       ],
@@ -113,14 +114,17 @@ button {
   cursor: pointer;
   padding: 0;
   margin: 0;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .lists + .lists {
-  margin-left: 40px;
+  margin-left: 60px;
 }
 
 .lists:nth-child(2) li button {
   background: #d0ebff;
+  color: #c92a2a;
 }
 
 .lists:nth-child(2) li:hover button {

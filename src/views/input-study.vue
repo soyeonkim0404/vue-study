@@ -26,7 +26,7 @@
           v-model="weekDayItems.weekDay"
           :value="item.value"
           class="buttonStyle"
-          @change="chkWeek"
+          @checkCheck="ddd"
         >
           {{ item.label }}
         </InputCheckbox>
@@ -162,6 +162,15 @@ export default {
       ) {
         this.week_allChk = true;
       } else {
+        this.week_allChk = false;
+      }
+    },
+    ddd(el) {
+      if (el.length === this.weekDayItems.option.length && !this.week_allChk) {
+        console.log('dddd');
+        this.week_allChk = true;
+      } else {
+        console.log('saaa');
         this.week_allChk = false;
       }
     },

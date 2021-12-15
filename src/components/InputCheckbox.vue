@@ -1,20 +1,14 @@
 <template>
   <label
     :class="{
-      checkedStyle: chkWeekday.some((el) => {
-        return el === value;
-      }),
+      checkedStyle: checked,
     }"
   >
     <input
       type="checkbox"
       v-bind="$attrs"
       :value="value"
-      :checked="
-        chkWeekday.some((el) => {
-          return el === value;
-        })
-      "
+      :chkWeekday="checked"
       @change="onChange(value)"
     />
     <span><slot></slot></span>
@@ -27,7 +21,12 @@ export default {
   inheritAttrs: false,
   model: {
     prop: 'chkWeekday',
-    event: 'checkCheck',
+    event: 'checkEvt',
+  },
+  computed: {
+    checked() {
+      return this.chkWeekday.some((el) => el === this.value);
+    },
   },
   methods: {
     onChange(val) {
@@ -37,7 +36,7 @@ export default {
       } else {
         this.chkWeekday.splice(idx, 1);
       }
-      this.$emit('checkCheck', this.chkWeekday);
+      this.$emit('checkEvt', this.chkWeekday);
     },
   },
 };
@@ -55,6 +54,7 @@ export default {
   border-left: none;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   input {
     position: absolute;
     left: -9999px;
@@ -62,7 +62,6 @@ export default {
   }
   span {
     font-size: 16px;
-    font-weight: bold;
     padding: 0;
     color: #ffa8a8;
   }

@@ -1,30 +1,33 @@
-body {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@import 'fonts.scss';
+@import 'reset.scss';
 
-ul {
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  list-style: none;
-}
-
-.wrap {
+#app {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+  width: 100vw;
   min-height: 100vh;
-}
 
-.page-title {
-  background: #222;
-  color: #fff;
-  font-weight: bold;
-  padding: 20px 40px;
-  font-size: 3rem;
-  margin-top: 20px;
+  li {
+    font-family: 'SpoqaHanSansNeo', sans-serif;
+    list-style: none;
+  }
+
+  .wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .page-title {
+    background: #222;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px 40px;
+    font-size: 3rem;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
 }

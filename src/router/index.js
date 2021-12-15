@@ -4,6 +4,8 @@ import Home from '../views/home.vue';
 import Array from '../views/array.vue';
 import AddressApi from '../views/address-api.vue';
 import InputStudy from '../views/input-study.vue';
+import calculator from '../views/calculator.vue';
+import todolist from '@/views/toodoList';
 
 Vue.use(VueRouter);
 
@@ -25,6 +27,14 @@ export const router = new VueRouter({
     {
       path: '/inputStudy',
       component: InputStudy,
+    },
+    {
+      path: '/calculator',
+      component: calculator,
+    },
+    {
+      path: '/todolist',
+      component: todolist,
     },
   ],
 });

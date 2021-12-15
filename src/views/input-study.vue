@@ -1,26 +1,41 @@
 <template>
-  <div class="wrap">
+  <div class="input-area">
     <div class="page-title">checkbox buttons</div>
 
-    <label>
-      <input type="checkbox" v-model="weekDayItems.week_allChk" @click="allChkBtn"/>
-      <span>전체 체크</span>
-    </label>
+    <div class="checkbox-area">
+      <label :class="{ all: true, allChecked: weekDayItems.week_allChk }">
+        <input
+          type="checkbox"
+          v-model="weekDayItems.week_allChk"
+          @click="allChkBtn"
+        />
+        <span>전체 체크</span>
+      </label>
+      <InputAllCheckbox
+        v-model="weekDayItems.week_allChk"
+        :weekDayItems="weekDayItems.option"
+        :chkWeekday.sync="weekDayItems.weekDay"
+        class="all"
+      >
+        컴포넌트 체크
+      </InputAllCheckbox>
 
-    <ul class="custom-chk">
-      <li v-for="(item, index) in weekDayItems.option" :key="index">
-        <InputCheckbox
-          v-model="weekDayItems.weekDay"
-          :value="item.value"
-          class="buttonStyle"
-          @checkCheck="allChkOnChange(weekDayItems)"
-        >
-          {{ item.label }}
-        </InputCheckbox>
-      </li>
-    </ul>
+      <ul class="custom-chk">
+        <li v-for="(item, index) in weekDayItems.option" :key="index">
+          <InputCheckbox
+            v-model="weekDayItems.weekDay"
+            :value="item.value"
+            class="buttonStyle"
+            @checkEvt="allChkOnChange"
+          >
+            {{ item.label }}
+          </InputCheckbox>
+        </li>
+      </ul>
+    </div>
 
-    <div class="page-title">radio buttons</div>
+    <div class="page-title" style="margin-top: 100px">radio buttons</div>
+    <span class="qa-txt">성별을 체크하시오</span>
     <ul>
       <li v-for="(item, index) in genderItems.option" :key="index">
         <InputRadio
@@ -33,30 +48,40 @@
       </li>
     </ul>
 
-    <ul>
-      <li v-for="(item, index) in fruitItems.option" :key="index">
-        <InputRadio
-          :val="item.value"
-          :name="item.name"
-          v-model="fruitItems.fruit"
-          class="buttonStyle"
-        >
-          {{ item.label }}
-        </InputRadio>
-      </li>
-    </ul>
+    <span class="qa-txt">배송지를 선택하시오</span>
+
+    <div class="delivery-sel">
+      <InputRadio
+        class="buttonStyle"
+        v-model="radioOption"
+        val="delivery1"
+        name="delivery-option"
+      >
+        최근배송지
+      </InputRadio>
+      <InputRadio
+        class="buttonStyle"
+        v-model="radioOption"
+        val="delivery2"
+        name="delivery-option"
+      >
+        과거배송지
+      </InputRadio>
+    </div>
   </div>
 </template>
 
 <script>
 import InputRadio from '../components/InputRadio';
 import InputCheckbox from '../components/InputCheckbox';
+import InputAllCheckbox from '../components/InputAllCheckbox';
 
 export default {
   name: 'input-study',
   components: {
     InputRadio,
     InputCheckbox,
+    InputAllCheckbox,
   },
   data() {
     return {
@@ -72,26 +97,6 @@ export default {
             label: '여자',
             value: 'woman',
             name: 'genderChk',
-          },
-        ],
-      },
-      fruitItems: {
-        fruit: '',
-        option: [
-          {
-            label: '바나나',
-            value: 'banana',
-            name: 'fruitChk',
-          },
-          {
-            label: '딸기',
-            value: 'strawberry',
-            name: 'fruitChk',
-          },
-          {
-            label: '샤인머스켓',
-            value: 'shine musket',
-            name: 'fruitChk',
           },
         ],
       },
@@ -111,28 +116,29 @@ export default {
             label: '수',
             value: 'wednesday',
           },
-          // {
-          //   label: '목',
-          //   value: 'thursday',
-          // },
-          // {
-          //   label: '금',
-          //   value: 'friday',
-          // },
-          // {
-          //   label: '토',
-          //   value: 'saturday',
-          // },
-          // {
-          //   label: '일',
-          //   value: 'sunday',
-          // },
+          {
+            label: '목',
+            value: 'thursday',
+          },
+          {
+            label: '금',
+            value: 'friday',
+          },
+          {
+            label: '토',
+            value: 'saturday',
+          },
+          {
+            label: '일',
+            value: 'sunday',
+          },
         ],
       },
+      radioOption: null,
     };
   },
   methods: {
-    allChkBtn(){
+    allChkBtn() {
       this.weekDayItems.weekDay = [];
       if (!this.weekDayItems.week_allChk) {
         this.weekDayItems.option.forEach((e) => {
@@ -140,49 +146,84 @@ export default {
         });
       }
     },
-    allChkOnChange(el){
-      if(el.option.length === el.weekDay.length){
-        el.week_allChk = true;
-      }else{
-        el.week_allChk = false;
-      }
-    }
+    allChkOnChange() {
+      this.weekDayItems.week_allChk =
+        this.weekDayItems.option.length === this.weekDayItems.weekDay.length;
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.wrap {
-  flex-direction: column;
-  div {
-    & + div {
-      margin-top: 100px;
-    }
-  }
-}
-
-ul{
-  padding:0;
-  margin: 20px 0 0 0;
-  li{
-    display: inline-flex;
-    & + li{
-      margin-left: 20px;
-    }
-  }
-}
-
-.custom-chk {
-  margin:0;
-  li {
-    display: inline-flex;
-    &:first-child {
-      label {
-        border-left: solid 1px #ffa8a8;
+.input-area {
+  ul {
+    padding: 0;
+    margin: 20px 0 0 0;
+    li {
+      display: inline-flex;
+      & + li {
+        margin-left: 20px;
       }
     }
-    & + li{
-      margin: 0;
+  }
+
+  .custom-chk {
+    display: inline-flex;
+    margin: 0;
+    li {
+      display: inline-flex;
+      &:first-child {
+        label {
+          border-left: solid 1px #ffa8a8;
+        }
+      }
+      & + li {
+        margin: 0;
+      }
+    }
+  }
+
+  .delivery-sel {
+    display: inline-flex;
+    margin-top: 10px;
+    label + label {
+      margin-left: 10px;
+    }
+  }
+
+  .qa-txt {
+    display: block;
+    margin-top: 55px;
+    font-size: 1.5rem;
+  }
+
+  .all {
+    position: relative;
+    display: inline-flex;
+    width: 120px;
+    height: 50px;
+    padding: 15px 22px;
+    box-sizing: border-box;
+    border: solid 1px #ffa8a8;
+    border-right: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    input {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+    }
+  }
+
+  .checkbox-area {
+    margin-top: 30px;
+  }
+
+  .allChecked {
+    background: #ffa8a8;
+    span {
+      color: #fff;
     }
   }
 }

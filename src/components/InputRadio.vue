@@ -1,5 +1,5 @@
 <template>
-  <label :class="{ chked: val === value }">
+  <label :class="{ chked: val === childValue }">
     <input
       type="radio"
       v-bind="$attrs"
@@ -14,14 +14,15 @@
 <script>
 export default {
   name: 'InputRadio',
-  props: ['value', 'val', 'name'],
+  props: ['childValue', 'val', 'name'],
   inheritAttrs: false,
   model: {
-    prop: 'value',
+    prop: 'childValue',
     event: 'change',
   },
   methods: {
     onChange() {
+      console.log(this.val);
       this.$emit('change', this.val);
     },
   },

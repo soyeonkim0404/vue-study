@@ -13,8 +13,6 @@
       </label>
       <InputAllCheckbox
         v-model="weekDayItems.week_allChk"
-        :weekDayItems="weekDayItems.option"
-        :chkWeekday.sync="weekDayItems.weekDay"
         class="all"
       >
         컴포넌트 체크
@@ -52,9 +50,10 @@
 
     <div class="delivery-sel">
       <InputRadio
+        id="attr"
         class="buttonStyle"
         v-model="radioOption"
-        val="delivery1"
+        val="최근배송지"
         name="delivery-option"
       >
         최근배송지
@@ -62,7 +61,7 @@
       <InputRadio
         class="buttonStyle"
         v-model="radioOption"
-        val="delivery2"
+        val="과거배송지"
         name="delivery-option"
       >
         과거배송지

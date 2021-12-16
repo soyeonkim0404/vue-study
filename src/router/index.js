@@ -6,6 +6,7 @@ import AddressApi from '../views/address-api.vue';
 import InputStudy from '../views/input-study.vue';
 import calculator from '../views/calculator.vue';
 import todolist from '@/views/toodoList';
+import pagination from '@/views/pagination';
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,10 @@ export const router = new VueRouter({
     {
       path: '/todolist',
       component: todolist,
+    },
+    {
+      path: '/pagination',
+      component: pagination,
     },
   ],
 });

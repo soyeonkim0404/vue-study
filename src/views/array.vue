@@ -1,36 +1,19 @@
 <template>
   <div class="wrap">
-    <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
+    <div class="lists">
       <ul class="list">
-        <li v-for="(item, index) in list.word" :key="index">
+        <li v-for="item in list.array1" :key="item.key">
           <listBtn :item="item" />
-          <span
-            v-if="listIndex !== 0"
-            @click="moveLeft(listIndex, index)"
-            class="icon-left"
-          >
+          <span @click="moveTo(item, -1)" class="icon-left">
             <font-awesome-icon icon="angle-left" />
           </span>
-          <span
-            v-if="listIndex !== lists.length - 1"
-            @click="moveRight(listIndex, index)"
-            class="icon-right"
-          >
-            <font-awesome-icon icon="angle-right" />
-          </span>
-          <!--위아래-->
-          <span class="icon-dup" @click="moveDUp(listIndex, index)">
-            <font-awesome-icon icon="angle-double-up" />
-          </span>
-          <span class="icon-up" @click="moveUp(listIndex, index)">
-            <font-awesome-icon icon="angle-up" />
-          </span>
-          <span class="icon-down" @click="moveDown(listIndex, index)">
-            <font-awesome-icon icon="angle-down" />
-          </span>
-          <span class="icon-ddown" @click="moveDDown(listIndex, index)">
-            <font-awesome-icon icon="angle-double-down" />
-          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="lists">
+      <ul class="list">
+        <li v-for="item in list.array2" :key="item.key">
+          <listBtn :item="item" />
         </li>
       </ul>
     </div>
@@ -39,75 +22,40 @@
 
 <script>
 import listBtn from '../components/listBtn';
-
 export default {
   name: 'array',
   components: { listBtn },
   data() {
     return {
-      lists: [
-        {
-          name: 'array1',
-          word: [
-            { key: 1, val: '딸기' },
-            { key: 2, val: '바나나' },
-            { key: 3, val: '샤인머스켓' },
-            { key: 4, val: '파인애플' },
-            { key: 5, val: '딸기' },
-          ],
-        },
-        {
-          name: 'array2',
-          word: [
-            { key: 1, val: '월' },
-            { key: 2, val: '화' },
-            { key: 3, val: '수' },
-            { key: 4, val: '목' },
-            { key: 5, val: '금' },
-            { key: 6, val: '토' },
-            { key: 7, val: '일' },
-          ],
-        },
-      ],
+      list: {
+        array1: [
+          { key: 1, val: '딸기' },
+          { key: 2, val: '바나나' },
+          { key: 3, val: '샤인머스켓' },
+          { key: 4, val: '파인애플' },
+          { key: 5, val: '딸기' },
+        ],
+        array2: [
+          { key: 1, val: '월' },
+          { key: 2, val: '화' },
+          { key: 3, val: '수' },
+          { key: 4, val: '목' },
+          { key: 5, val: '금' },
+          { key: 6, val: '토' },
+          { key: 7, val: '일' },
+        ],
+      },
     };
   },
   methods: {
-    moveLeft(listIndex, index) {
-      const item = this.lists[listIndex].word[index];
-      this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex - 1].word.push(item);
-    },
-    moveRight(listIndex, index) {
-      const item = this.lists[listIndex].word[index];
-      this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex + 1].word.push(item);
-    },
-    moveDUp(listIndex, index) {
-      const item = this.lists[listIndex].word[index];
-      this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.unshift(item);
-    },
-    moveUp(listIndex, index) {
-      const item = this.lists[listIndex].word[index];
-      let newPos = index - 1;
-      this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.splice(newPos, 0, item);
-    },
-    moveDown(listIndex, index) {
-      const item = this.lists[listIndex].word[index];
-      let newPos = index + 1;
-      this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.splice(newPos, 0, item);
-    },
-    moveDDown(listIndex, index) {
-      const item = this.lists[listIndex].word[index];
-      this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.push(item);
+    moveTo(itm, nm) {
+      console.log(this.list);
+      console.log(itm);
+      console.log(nm);
     },
   },
 };
 </script>
-
 <style scoped>
 button {
   border: none;

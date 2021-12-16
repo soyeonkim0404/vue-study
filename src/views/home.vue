@@ -16,6 +16,7 @@
       <router-link to="/addressApi" tag="li">Address-api</router-link>
       <router-link to="/array" tag="li">Array methods</router-link>
       <router-link to="/inputStudy" tag="li">Checkbox, radio</router-link>
+      <router-link to="/pagination" tag="li">component pagination</router-link>
     </ul>
   </div>
 </template>
@@ -74,19 +75,22 @@ export default {
       font-family: 'Cantata One', serif !important;
     }
   }
-  .main-list li {
-    margin-top: 100px;
-    cursor: pointer;
-    font-size: 4rem;
-    text-align: center;
-    color: #f8f9fa;
-    font-family: 'Cantata One', serif !important;
-    letter-spacing: 4px;
-    &:hover {
-      opacity: 0.4;
-    }
-    & + li {
-      margin-top: 10px;
+  .main-list {
+    margin: 30px 0;
+    li {
+      margin-top: 100px;
+      cursor: pointer;
+      font-size: 4rem;
+      text-align: center;
+      color: #f8f9fa;
+      font-family: 'Cantata One', serif !important;
+      letter-spacing: 4px;
+      &:hover {
+        opacity: 0.4;
+      }
+      & + li {
+        margin-top: 10px;
+      }
     }
   }
 }

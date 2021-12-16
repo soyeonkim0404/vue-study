@@ -3,19 +3,14 @@
     <div class="page-title">checkbox buttons</div>
 
     <div class="checkbox-area">
-      <label :class="{ all: true, allChecked: weekDayItems.week_allChk }">
-        <input
-          type="checkbox"
-          v-model="weekDayItems.week_allChk"
-          @click="allChkBtn"
-        />
-        <span>전체 체크</span>
-      </label>
       <InputAllCheckbox
+        class="buttonStyle all"
         v-model="weekDayItems.week_allChk"
-        class="all"
+        :weekDayItems="weekDayItems.option"
+        :weekChkArray="weekDayItems.weekDay"
+        @checkChange="allChkBtn"
       >
-        컴포넌트 체크
+        전체 체크
       </InputAllCheckbox>
 
       <ul class="custom-chk">
@@ -24,7 +19,7 @@
             v-model="weekDayItems.weekDay"
             :value="item.value"
             class="buttonStyle"
-            @checkEvt="allChkOnChange"
+            @checkChange="allChkOnChange"
           >
             {{ item.label }}
           </InputCheckbox>
@@ -139,7 +134,7 @@ export default {
   methods: {
     allChkBtn() {
       this.weekDayItems.weekDay = [];
-      if (!this.weekDayItems.week_allChk) {
+      if (this.weekDayItems.week_allChk) {
         this.weekDayItems.option.forEach((e) => {
           this.weekDayItems.weekDay.push(e.value);
         });
@@ -197,22 +192,11 @@ export default {
   }
 
   .all {
-    position: relative;
     display: inline-flex;
     width: 120px;
     height: 50px;
-    padding: 15px 22px;
-    box-sizing: border-box;
-    border: solid 1px #ffa8a8;
+    border-left: solid 1px #ffa8a8;
     border-right: none;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    input {
-      position: absolute;
-      left: -9999px;
-      opacity: 0;
-    }
   }
 
   .checkbox-area {

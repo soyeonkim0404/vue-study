@@ -1,21 +1,8 @@
-<template>
-  <label :class="{ allChecked: allChk }">
-    <input type="checkbox" :allChk="allChk"  />
-    <span><slot></slot></span>
-  </label>
-</template>
 <script>
+import InputCheckbox from '@/components/InputCheckbox';
 export default {
   name: 'InputAllCheckbox',
-  props: {
-    allChk: Boolean,
-  },
-  model: {
-    prop: 'allChk',
-    event: 'change',
-  },
-  methods: {
-  
-  },
+  extends: InputCheckbox,
+  props: ['weekDayItems', 'weekChkArray'],
 };
 </script>

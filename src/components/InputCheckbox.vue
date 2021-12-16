@@ -1,15 +1,15 @@
 <template>
   <label
     :class="{
-      checkedStyle: checked,
+      checkedStyle: checkedEvt,
     }"
   >
     <input
       type="checkbox"
       v-bind="$attrs"
+      :checked="checked"
+      @change="onChange"
       :value="value"
-      :chkWeekday="checked"
-      @change="onChange(value)"
     />
     <span><slot></slot></span>
   </label>
@@ -17,26 +17,38 @@
 <script>
 export default {
   name: 'InputCheckbox',
-  props: ['chkWeekday', 'value'],
+  props: ['checked', 'value'],
   inheritAttrs: false,
   model: {
-    prop: 'chkWeekday',
-    event: 'checkEvt',
+    prop: 'checked',
+    event: 'checkChange',
   },
   computed: {
-    checked() {
-      return this.chkWeekday.some((el) => el === this.value);
+    checkboxType() {
+      return typeof this.checked === 'boolean';
+    },
+    checkedEvt() {
+      if (this.checkboxType) {
+        return this.checked;
+      }
+      return this.checked.some((el) => el === this.value);
     },
   },
   methods: {
-    onChange(val) {
-      const idx = this.chkWeekday.indexOf(val);
-      if (idx === -1) {
-        this.chkWeekday.push(val);
+    onChange(e) {
+      if (this.checkboxType) {
+        //console.log(e.target.checked);
+        this.$emit('checkChange', e.target.checked);
       } else {
-        this.chkWeekday.splice(idx, 1);
+        //console.log(this.checked);
+        const idx = this.checked.indexOf(this.value);
+        if (idx === -1) {
+          this.checked.push(this.value);
+        } else {
+          this.checked.splice(idx, 1);
+        }
+        this.$emit('checkChange', this.checked);
       }
-      this.$emit('checkEvt', this.chkWeekday);
     },
   },
 };

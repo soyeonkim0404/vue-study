@@ -76,9 +76,9 @@ export default {
     }
   }
   .main-list {
-    margin: 30px 0;
+    margin-top: 100px;
+    padding-bottom: 100px;
     li {
-      margin-top: 100px;
       cursor: pointer;
       font-size: 4rem;
       text-align: center;

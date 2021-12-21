@@ -6,7 +6,7 @@ import AddressApi from '../views/address-api.vue';
 import InputStudy from '../views/input-study.vue';
 import calculator from '../views/calculator.vue';
 import todolist from '@/views/toodoList';
-import pagination from '@/views/pagination';
+import pagination from '@/views/pagination-view';
 
 Vue.use(VueRouter);
 

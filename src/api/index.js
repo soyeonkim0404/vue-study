@@ -4,7 +4,7 @@ const config = {
 };
 
 function searchApi(data) {
-  console.log(data);
+  //console.log(data);
   const basic = {
     confmKey: 'devU01TX0FVVEgyMDIxMTIwODA5NTk1OTExMjAwMzE=',
     resultType: 'json',

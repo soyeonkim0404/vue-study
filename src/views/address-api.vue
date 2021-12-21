@@ -111,6 +111,7 @@ export default {
       this.showModal = false;
     },
     handlePageChange(value) {
+      console.log(value);
       this.currentPage = value;
       this.onClickSh();
     },

@@ -57,6 +57,14 @@ export default {
           ],
         },
         {
+          name: 'array3',
+          word: [
+            { key: 1, val: '김소연' },
+            { key: 2, val: '김도은' },
+            { key: 3, val: '이수현' },
+          ],
+        },
+        {
           name: 'array2',
           word: [
             { key: 1, val: '월' },
@@ -106,12 +114,12 @@ button {
   margin-left: 60px;
 }
 
-.lists:nth-child(2) li button {
+.lists:nth-child(even) li button {
   background: #d0ebff;
-  color: #c92a2a;
+  color: #5f3dc4;
 }
 
-.lists:nth-child(2) li:hover button {
+.lists:nth-child(even) li:hover button {
   background: #a5d8ff;
 }
 

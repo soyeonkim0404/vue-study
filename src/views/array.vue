@@ -1,35 +1,33 @@
 <template>
   <div class="wrap">
-    <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
+    <div class="lists">
       <ul class="list">
-        <li v-for="(item, index) in list.word" :key="index">
+        <li v-for="(item, index) in list.array1" :key="index">
           <listBtn :item="item" />
-          <span
-            v-if="listIndex !== 0"
-            @click="moveTo(listIndex, index, -1)"
-            class="icon-left"
-          >
-            <font-awesome-icon icon="angle-left" />
-          </span>
-          <span
-            v-if="listIndex !== lists.length - 1"
-            @click="moveTo(listIndex, index, 1)"
-            class="icon-right"
-          >
+          <span @click="moveTo(item, -1)" class="icon-right">
             <font-awesome-icon icon="angle-right" />
           </span>
-          <!--위아래-->
-          <span class="icon-dup" @click="moveUp(listIndex, index)">
+          <span class="icon-dup" @click="moveUp(item, index)">
             <font-awesome-icon icon="angle-double-up" />
           </span>
-          <span class="icon-up" @click="moveFrom(listIndex, index, -1)">
+          <span class="icon-ddown" @click="moveDown(item, index)">
+            <font-awesome-icon icon="angle-double-down" />
+          </span>
+          <span class="icon-up" @click="moveFrom(item, index, -1)">
             <font-awesome-icon icon="angle-up" />
           </span>
-          <span class="icon-down" @click="moveFrom(listIndex, index, 1)">
+          <span class="icon-down" @click="moveFrom(item, index, 1)">
             <font-awesome-icon icon="angle-down" />
           </span>
-          <span class="icon-ddown" @click="moveDown(listIndex, index)">
-            <font-awesome-icon icon="angle-double-down" />
+        </li>
+      </ul>
+    </div>
+    <div class="lists">
+      <ul class="list">
+        <li v-for="item in list.array2" :key="item.key">
+          <listBtn :item="item" />
+          <span @click="moveTo(item, 1)" class="icon-left">
+            <font-awesome-icon icon="angle-left" />
           </span>
         </li>
       </ul>
@@ -39,67 +37,47 @@
 
 <script>
 import listBtn from '../components/listBtn';
-
 export default {
   name: 'array',
   components: { listBtn },
   data() {
     return {
-      lists: [
-        {
-          name: 'array1',
-          word: [
-            { key: 1, val: '딸기' },
-            { key: 2, val: '바나나' },
-            { key: 3, val: '샤인머스켓' },
-            { key: 4, val: '파인애플' },
-            { key: 5, val: '딸기' },
-          ],
-        },
-        {
-          name: 'array3',
-          word: [
-            { key: 1, val: '김소연' },
-            { key: 2, val: '김도은' },
-            { key: 3, val: '이수현' },
-          ],
-        },
-        {
-          name: 'array2',
-          word: [
-            { key: 1, val: '월' },
-            { key: 2, val: '화' },
-            { key: 3, val: '수' },
-            { key: 4, val: '목' },
-            { key: 5, val: '금' },
-            { key: 6, val: '토' },
-            { key: 7, val: '일' },
-          ],
-        },
-      ],
+      list: {
+        array1: [
+          { key: 1, val: '딸기' },
+          { key: 2, val: '바나나' },
+          { key: 3, val: '샤인머스켓' },
+          { key: 4, val: '파인애플' },
+          { key: 5, val: '딸기' },
+        ],
+        array2: [
+          { key: 1, val: '월' },
+          { key: 2, val: '화' },
+          { key: 3, val: '수' },
+          { key: 4, val: '목' },
+          { key: 5, val: '금' },
+          { key: 6, val: '토' },
+          { key: 7, val: '일' },
+        ],
+      },
     };
   },
   methods: {
-    moveTo(listIndex, index, num) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex + num].word.push(item[0]);
+    moveUp(item, index) {
+      const spliceItem = this.list.array1.splice(index, 1);
+      this.list.array1.unshift(spliceItem[0]);
     },
-    moveFrom(listIndex, index, num) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.splice(index + num, 0, item[0]);
+    moveDown(item, index) {
+      const spliceItem = this.list.array1.splice(index, 1);
+      this.list.array1.push(spliceItem[0]);
     },
-    moveUp(listIndex, index) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.unshift(item[0]);
-    },
-    moveDown(listIndex, index) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.push(item[0]);
+    moveFrom(item, index, num) {
+      const spliceItem = this.list.array1.splice(index, 1);
+      this.list.array1.splice(index + num, 0, spliceItem[0]);
     },
   },
 };
 </script>
-
 <style scoped>
 button {
   border: none;

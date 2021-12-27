@@ -6,7 +6,7 @@
     type="button"
     @click="$emit('clickChangeBtn')"
   >
-    {{ this.item.val }}
+    {{ this.item.key }}. {{ this.item.val }}
   </button>
 </template>
 

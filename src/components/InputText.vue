@@ -1,12 +1,13 @@
 <template>
   <span class="input-text">
-    <input type="text" @input="handleInput" :value="value" />
+    <input type="text" @input="handleInput" :value="value" v-bind="$attrs" />
   </span>
 </template>
 
 <script>
 export default {
   name: 'InputText',
+  inheritAttrs: false,
   props: ['value'],
   methods: {
     handleInput(event) {
@@ -18,7 +19,6 @@ export default {
 
 <style scoped lang="scss">
 .input-text {
-  width: 100%;
   input {
     display: inline-block;
     width: 100%;
@@ -36,7 +36,7 @@ export default {
     &:focus {
       border: none;
       outline: none;
-      box-shadow: 0 5px 16px rgba(43, 43, 43, 0.5);
+      box-shadow: 0 5px 16px rgba(97, 97, 97, 0.5);
       background: #495057;
       color: #fff;
     }
@@ -48,18 +48,9 @@ export default {
     -webkit-box-shadow: 0 0 0 30px #495057 inset !important;
     -webkit-text-fill-color: #fff !important;
   }
-  /* .form-btn {
-    width: 10%;
-    height: 60px;
-    padding: 0;
-    text-align: center;
-    margin-left: 2%;
-    background: #495057;
-    color: #fff;
-    font-size: 1.2rem;
-    box-sizing: border-box;
-    vertical-align: middle;
-    border-radius: 10px;
-  }*/
+  &.searchIsBtn {
+    display: inline-flex;
+    width: 86%;
+  }
 }
 </style>

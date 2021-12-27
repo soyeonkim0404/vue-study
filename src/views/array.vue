@@ -1,19 +1,36 @@
 <template>
   <div class="wrap">
-    <div class="lists">
+    <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
       <ul class="list">
-        <li v-for="item in list.array1" :key="item.key">
+        <li v-for="(item, index) in list.word" :key="index">
           <listBtn :item="item" />
-          <span @click="moveTo(item, -1)" class="icon-left">
+          <span
+            v-if="listIndex !== 0"
+            @click="moveTo(listIndex, index, -1)"
+            class="icon-left"
+          >
             <font-awesome-icon icon="angle-left" />
           </span>
-        </li>
-      </ul>
-    </div>
-    <div class="lists">
-      <ul class="list">
-        <li v-for="item in list.array2" :key="item.key">
-          <listBtn :item="item" />
+          <span
+            v-if="listIndex !== lists.length - 1"
+            @click="moveTo(listIndex, index, 1)"
+            class="icon-right"
+          >
+            <font-awesome-icon icon="angle-right" />
+          </span>
+          <!--위아래-->
+          <span class="icon-dup" @click="moveUp(listIndex, index)">
+            <font-awesome-icon icon="angle-double-up" />
+          </span>
+          <span class="icon-up" @click="moveFrom(listIndex, index, -1)">
+            <font-awesome-icon icon="angle-up" />
+          </span>
+          <span class="icon-down" @click="moveFrom(listIndex, index, 1)">
+            <font-awesome-icon icon="angle-down" />
+          </span>
+          <span class="icon-ddown" @click="moveDown(listIndex, index)">
+            <font-awesome-icon icon="angle-double-down" />
+          </span>
         </li>
       </ul>
     </div>
@@ -22,40 +39,67 @@
 
 <script>
 import listBtn from '../components/listBtn';
+
 export default {
   name: 'array',
   components: { listBtn },
   data() {
     return {
-      list: {
-        array1: [
-          { key: 1, val: '딸기' },
-          { key: 2, val: '바나나' },
-          { key: 3, val: '샤인머스켓' },
-          { key: 4, val: '파인애플' },
-          { key: 5, val: '딸기' },
-        ],
-        array2: [
-          { key: 1, val: '월' },
-          { key: 2, val: '화' },
-          { key: 3, val: '수' },
-          { key: 4, val: '목' },
-          { key: 5, val: '금' },
-          { key: 6, val: '토' },
-          { key: 7, val: '일' },
-        ],
-      },
+      lists: [
+        {
+          name: 'array1',
+          word: [
+            { key: 1, val: '딸기' },
+            { key: 2, val: '바나나' },
+            { key: 3, val: '샤인머스켓' },
+            { key: 4, val: '파인애플' },
+            { key: 5, val: '딸기' },
+          ],
+        },
+        {
+          name: 'array3',
+          word: [
+            { key: 1, val: '김소연' },
+            { key: 2, val: '김도은' },
+            { key: 3, val: '이수현' },
+          ],
+        },
+        {
+          name: 'array2',
+          word: [
+            { key: 1, val: '월' },
+            { key: 2, val: '화' },
+            { key: 3, val: '수' },
+            { key: 4, val: '목' },
+            { key: 5, val: '금' },
+            { key: 6, val: '토' },
+            { key: 7, val: '일' },
+          ],
+        },
+      ],
     };
   },
   methods: {
-    moveTo(itm, nm) {
-      console.log(this.list);
-      console.log(itm);
-      console.log(nm);
+    moveTo(listIndex, index, num) {
+      const item = this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex + num].word.push(item[0]);
+    },
+    moveFrom(listIndex, index, num) {
+      const item = this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.splice(index + num, 0, item[0]);
+    },
+    moveUp(listIndex, index) {
+      const item = this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.unshift(item[0]);
+    },
+    moveDown(listIndex, index) {
+      const item = this.lists[listIndex].word.splice(index, 1);
+      this.lists[listIndex].word.push(item[0]);
     },
   },
 };
 </script>
+
 <style scoped>
 button {
   border: none;
@@ -70,12 +114,12 @@ button {
   margin-left: 60px;
 }
 
-.lists:nth-child(2) li button {
+.lists:nth-child(even) li button {
   background: #d0ebff;
-  color: #c92a2a;
+  color: #5f3dc4;
 }
 
-.lists:nth-child(2) li:hover button {
+.lists:nth-child(even) li:hover button {
   background: #a5d8ff;
 }
 

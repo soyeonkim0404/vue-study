@@ -7,8 +7,13 @@
     >
       <font-awesome-icon icon="angle-left" />
     </span>
-    <ul>
-      <li v-for="page in pageSetting.list" :key="page" @click="sendPage(page)">
+    <ul class="pageNm">
+      <li
+        v-for="page in pageSetting.list"
+        :key="page"
+        @click="sendPage(page)"
+        :class="{ on: page === pageSetting.page }"
+      >
         {{ page }}
       </li>
     </ul>
@@ -36,21 +41,47 @@ export default {
 
 <style scoped lang="scss">
 .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
   span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     color: #fff;
-    background: #212529;
+    background: #868e96;
     border-radius: 5px;
+    margin-right: 10px;
+    &.nex {
+      margin-left: 10px;
+      margin-right: 0;
+    }
   }
-  ul {
+  .pageNm {
     li {
       display: inline-flex;
       cursor: pointer;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      background: #495057;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 14px;
+      & + li {
+        margin-left: 10px;
+      }
+      &.on {
+        background: #212529;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 }

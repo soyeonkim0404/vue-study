@@ -1,21 +1,27 @@
 <template>
   <div id="api">
     <div class="content">
-      <InputText v-model="keyword" @input="onClickSh" />
+      <div class="search-area">
+        <InputText
+          v-model="keyword"
+          class="searchIsBtn"
+          @keyup.enter="onClickSh"
+        />
+        <button type="button" @click="onClickSh">
+          <font-awesome-icon icon="arrow-down" />
+        </button>
+      </div>
+
       <!--리스트-->
       <div id="list">
-        <ul class="jusoList">
-          <li
-            v-for="(item, index) in datasJuso"
-            :key="index"
-            :current-page="currentPage"
-          >
-            <span class="text">
+        <transition-group name="list" tag="ul" class="jusoList">
+          <li v-for="(item, index) in datasJuso" :key="index">
+            <span>
               {{ item.zipNo }}
               <span>{{ item.roadAddrPart1 }}</span>
             </span>
           </li>
-        </ul>
+        </transition-group>
       </div>
 
       <!--컴포넌트 페이징-->
@@ -24,21 +30,12 @@
           pageDataSetting(
             this.totalCount,
             this.countPerPage,
-            this.block,
+            this.pageDft,
             this.currentPage
           )
         "
         @paging="pagingMethod"
       />
-
-      <!--페이지네이션-->
-      <!--      <div class="btn-cover" v-if="datasJuso.length">
-        <button @click="prevPage" class="page-btn">이전</button>
-        <span class="page-count">
-          {{ currentPage }} / {{ totalCount }} 페이지
-        </span>
-        <button @click="nextPage" class="page-btn">다음</button>
-      </div>-->
     </div>
   </div>
 </template>
@@ -54,21 +51,13 @@ export default {
   data: function () {
     return {
       datasJuso: [],
-      datasCommon: [],
       keyword: '',
-      resultZip: '',
-      resultAddr: '',
       currentPage: 1,
-      countPerPage: '',
+      countPerPage: 10,
       totalCount: '',
-      block: 5,
+      pageDft: 10, // 페이징 넘버 갯수
     };
   },
-  /* computed: {
-    rows() {
-      return this.totalCount;
-    },
-  },*/
   mounted() {
     this.pagingMethod(this.currentPage);
   },
@@ -80,48 +69,49 @@ export default {
       };
       try {
         const {
-          data: { results: res },
+          data: { results: response },
         } = await searchApi(data);
-        this.datasJuso = res.juso;
-        this.datasCommon = res.common;
-        this.totalCount = this.datasCommon.totalCount;
-        this.countPerPage = this.datasCommon.countPerPage;
-        console.log(res);
+        this.datasJuso = response.juso;
+        this.totalCount = response.common.totalCount;
+        this.countPerPage = response.common.countPerPage;
+        //console.log(response);
       } catch (error) {
         console.log(error);
       }
     },
     pagingMethod(page) {
-      this.onClickSh();
-      this.datasJuso.slice(
+      /* this.datasJuso.slice(
         (this.currentPage - 1) * this.countPerPage,
         this.currentPage * this.countPerPage
-      );
+      );*/
       this.currentPage = page;
       this.pageDataSetting(
         this.totalCount,
         this.countPerPage,
-        this.block,
+        this.pageDft,
         page
       );
+      this.onClickSh();
     },
-    pageDataSetting(total, perPage, block, page) {
+    pageDataSetting(total, perPage, pageDft, page) {
+      // 전체 갯수 / 기본노출갯수 10개
       const totalPage = Math.ceil(total / perPage);
-      let currentPage = page;
-      const first =
-        currentPage > 1 ? parseInt(currentPage, 10) - parseInt(1, 10) : null;
-      const end =
-        totalPage !== currentPage
-          ? parseInt(currentPage, 10) + parseInt(1, 10)
-          : null;
-      let startIndex = (Math.ceil(currentPage / block) - 1) * block + 1;
-      let endIndex =
-        startIndex + block > totalPage ? totalPage : startIndex + block - 1;
+      // 현재 페이지 이전
+      const first = page > 1 ? page - 1 : null;
+      //현재 페이지 다음
+      const end = totalPage !== page ? page + 1 : null;
+      //디폴트 페이지 첫번째 숫자
+      let start = (Math.ceil(page / pageDft) - 1) * pageDft + 1;
+      //디폴트 페이지 마지막 숫자
+      let finish =
+        start + pageDft > totalPage ? totalPage : start + pageDft - 1;
+
       let list = [];
-      for (let index = startIndex; index <= endIndex; index++) {
-        list.push(index);
+      for (let i = start; i <= finish; i++) {
+        list.push(i);
       }
-      return { first, end, list, currentPage };
+
+      return { first, end, list, page };
     },
   },
 };
@@ -135,35 +125,12 @@ export default {
   width: 100%;
   background: #212529;
   .content {
-    width: 50vw;
-    max-width: 620px;
+    width: 620px;
     background: #343a40;
     margin: 0 auto;
     border-radius: 10px;
     padding: 20px;
   }
-}
-
-.result {
-  margin-top: 20px;
-}
-
-.result-ipt,
-input {
-  display: block;
-  width: 250px;
-  height: 40px;
-  padding: 0 10px;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-.result-ipt.zip {
-  width: 100px;
-}
-
-.result-ipt + .result-ipt {
-  margin-top: 10px;
 }
 
 .jusoList {
@@ -186,7 +153,7 @@ input {
       cursor: pointer;
       font-weight: bold;
       &:hover {
-        opacity: 0.4;
+        opacity: 0.8;
       }
       span {
         margin-left: 25px;
@@ -214,5 +181,49 @@ input {
     padding: 0 1rem;
     color: #fff;
   }
+}
+
+.search-area {
+  display: flex;
+  align-items: center;
+  button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    margin-left: calc(100% - 86% - 60px);
+    background: #495057;
+    color: #fff;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: 0 5px 16px rgba(97, 97, 97, 0.5);
+    }
+  }
+}
+
+.list-enter-from,
+.list-leave-to {
+  transform: scale(0.1);
+  opacity: 0;
+}
+.list-enter-to,
+.list-leave-from {
+  transform: scale(1);
+  opacity: 1;
+}
+.list-enter-active {
+  transition: all 3s ease;
+}
+
+.list-leave-active {
+  transition: all 3s ease;
+}
+
+.list-move {
+  transition: all 3s ease;
 }
 </style>

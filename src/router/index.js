@@ -7,6 +7,7 @@ import InputStudy from '../views/input-study.vue';
 import calculator from '../views/calculator.vue';
 import todolist from '@/views/toodoList';
 import pagination from '@/views/pagination-view';
+import array_bak from '@/views/array_bak';
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,10 @@ export const router = new VueRouter({
     {
       path: '/pagination',
       component: pagination,
+    },
+    {
+      path: '/array_bak',
+      component: array_bak,
     },
   ],
 });

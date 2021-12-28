@@ -1,38 +1,43 @@
 <template>
-  <div class="wrap">
-    <div class="lists">
-      <ul class="list">
-        <li v-for="(item, index) in list.array1" :key="index">
-          <listBtn :item="item" />
-          <span @click="moveTo(item, -1)" class="icon-right">
-            <font-awesome-icon icon="angle-right" />
-          </span>
-          <span class="icon-dup" @click="moveUp(item, index)">
-            <font-awesome-icon icon="angle-double-up" />
-          </span>
-          <span class="icon-ddown" @click="moveDown(item, index)">
-            <font-awesome-icon icon="angle-double-down" />
-          </span>
-          <span class="icon-up" @click="moveFrom(item, index, -1)">
-            <font-awesome-icon icon="angle-up" />
-          </span>
-          <span class="icon-down" @click="moveFrom(item, index, 1)">
-            <font-awesome-icon icon="angle-down" />
-          </span>
-        </li>
-      </ul>
+  <container>
+    <div class="abc">
+      <router-link to="/array_bak">과거의 어레이</router-link>
     </div>
-    <div class="lists">
-      <ul class="list">
-        <li v-for="item in list.array2" :key="item.key">
-          <listBtn :item="item" />
-          <span @click="moveTo(item, 1)" class="icon-left">
-            <font-awesome-icon icon="angle-left" />
-          </span>
-        </li>
-      </ul>
+    <div class="wrap">
+      <div class="lists">
+        <ul class="list">
+          <li v-for="(item, index) in list.array1" :key="index">
+            <listBtn :item="item" />
+            <span @click="moveTo(item, -1)" class="icon-right">
+              <font-awesome-icon icon="angle-right" />
+            </span>
+            <span class="icon-dup" @click="moveUp(item, index)">
+              <font-awesome-icon icon="angle-double-up" />
+            </span>
+            <span class="icon-ddown" @click="moveDown(item, index)">
+              <font-awesome-icon icon="angle-double-down" />
+            </span>
+            <span class="icon-up" @click="moveFrom(item, index, -1)">
+              <font-awesome-icon icon="angle-up" />
+            </span>
+            <span class="icon-down" @click="moveFrom(item, index, 1)">
+              <font-awesome-icon icon="angle-down" />
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="lists">
+        <ul class="list">
+          <li v-for="item in list.array2" :key="item.key">
+            <listBtn :item="item" />
+            <span @click="moveTo(item, 1)" class="icon-left">
+              <font-awesome-icon icon="angle-left" />
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </container>
 </template>
 
 <script>
@@ -153,5 +158,11 @@ span.icon-ddown {
 
 li:hover span[class^='icon'] {
   display: flex;
+}
+
+.abc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

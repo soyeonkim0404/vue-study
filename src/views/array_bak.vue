@@ -1,40 +1,45 @@
 <template>
-  <div class="wrap">
-    <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
-      <ul class="list">
-        <li v-for="(item, index) in list.word" :key="index">
-          <listBtn :item="item" />
-          <span
-            v-if="listIndex !== 0"
-            @click="moveTo(listIndex, index, -1)"
-            class="icon-left"
-          >
-            <font-awesome-icon icon="angle-left" />
-          </span>
-          <span
-            v-if="listIndex !== lists.length - 1"
-            @click="moveTo(listIndex, index, 1)"
-            class="icon-right"
-          >
-            <font-awesome-icon icon="angle-right" />
-          </span>
-          <!--위아래-->
-          <span class="icon-dup" @click="moveUp(listIndex, index)">
-            <font-awesome-icon icon="angle-double-up" />
-          </span>
-          <span class="icon-up" @click="moveFrom(listIndex, index, -1)">
-            <font-awesome-icon icon="angle-up" />
-          </span>
-          <span class="icon-down" @click="moveFrom(listIndex, index, 1)">
-            <font-awesome-icon icon="angle-down" />
-          </span>
-          <span class="icon-ddown" @click="moveDown(listIndex, index)">
-            <font-awesome-icon icon="angle-double-down" />
-          </span>
-        </li>
-      </ul>
+  <container>
+    <div class="abc">
+      <router-link to="/array_bak">지금의 어레이</router-link>
     </div>
-  </div>
+    <div class="wrap">
+      <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
+        <ul class="list">
+          <li v-for="(item, index) in list.word" :key="index">
+            <listBtn :item="item" />
+            <span
+              v-if="listIndex !== 0"
+              @click="moveTo(listIndex, index, -1)"
+              class="icon-left"
+            >
+              <font-awesome-icon icon="angle-left" />
+            </span>
+            <span
+              v-if="listIndex !== lists.length - 1"
+              @click="moveTo(listIndex, index, 1)"
+              class="icon-right"
+            >
+              <font-awesome-icon icon="angle-right" />
+            </span>
+            <!--위아래-->
+            <span class="icon-dup" @click="moveUp(listIndex, index)">
+              <font-awesome-icon icon="angle-double-up" />
+            </span>
+            <span class="icon-up" @click="moveFrom(listIndex, index, -1)">
+              <font-awesome-icon icon="angle-up" />
+            </span>
+            <span class="icon-down" @click="moveFrom(listIndex, index, 1)">
+              <font-awesome-icon icon="angle-down" />
+            </span>
+            <span class="icon-ddown" @click="moveDown(listIndex, index)">
+              <font-awesome-icon icon="angle-double-down" />
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </container>
 </template>
 
 <script>
@@ -175,5 +180,10 @@ span.icon-ddown {
 
 li:hover span[class^='icon'] {
   display: flex;
+}
+.abc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

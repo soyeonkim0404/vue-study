@@ -8,6 +8,7 @@ import calculator from '../views/calculator.vue';
 import todolist from '@/views/toodoList';
 import pagination from '@/views/pagination-view';
 import array_bak from '@/views/array_bak';
+import dragView from '@/views/drag-view';
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,10 @@ export const router = new VueRouter({
     {
       path: '/array_bak',
       component: array_bak,
+    },
+    {
+      path: '/dragView',
+      component: dragView,
     },
   ],
 });

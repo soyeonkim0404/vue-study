@@ -7,21 +7,23 @@
       <div class="lists">
         <ul class="list">
           <li v-for="item in list.array1" :key="item.key">
-            <listBtn :item="item" @clickChangeBtn="clickItem(item)" />
+            <listBtn :item="item" />
+            <span class="icon-dup" @click="moveUp(item)">
+              <font-awesome-icon icon="angle-double-up" />
+            </span>
           </li>
         </ul>
       </div>
       <div class="lists">
         <ul class="list">
           <li v-for="item in list.array2" :key="item.key">
-            <listBtn :item="item" @clickChangeBtn="clickItem(item)" />
+            <listBtn :item="item" />
+            <span class="icon-dup" @click="moveUp(item)">
+              <font-awesome-icon icon="angle-double-up" />
+            </span>
           </li>
         </ul>
       </div>
-
-      <span class="icon-dup" @click="moveUp()">
-        <font-awesome-icon icon="angle-double-up" />
-      </span>
     </div>
   </div>
 </template>
@@ -51,18 +53,14 @@ export default {
           { key: 7, val: '일' },
         ],
       },
-      selectItem: null,
     };
   },
   methods: {
-    clickItem(value) {
-      this.selectItem = value;
-      console.log(this.selectItem);
-    },
-    moveUp() {
-      console.log(Object.keys(this.selectItem).includes('array1'));
+    moveUp(item) {
+      console.log(item);
       Object.keys(this.list).forEach((key) => {
-        //console.log(key);
+        console.log(item);
+
         console.log(this.list[key]);
       });
       //console.log(Object.keys(this.list));
@@ -108,8 +106,8 @@ li + li {
 }
 
 span[class^='icon'] {
-  /*position: absolute;
-  top: 50%;*/
+  position: absolute;
+  top: 50%;
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
@@ -117,7 +115,7 @@ span[class^='icon'] {
   align-items: center;
   background: rgba(255, 255, 255, 0.8);
   color: #444;
-  /*  display: none;*/
+   display: none;
 }
 
 span.icon-right {

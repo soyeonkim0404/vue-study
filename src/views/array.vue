@@ -1,43 +1,29 @@
 <template>
-  <container>
+  <div>
     <div class="abc">
       <router-link to="/array_bak">과거의 어레이</router-link>
     </div>
     <div class="wrap">
       <div class="lists">
         <ul class="list">
-          <li v-for="(item, index) in list.array1" :key="index">
-            <listBtn :item="item" />
-            <span @click="moveTo(item, -1)" class="icon-right">
-              <font-awesome-icon icon="angle-right" />
-            </span>
-            <span class="icon-dup" @click="moveUp(item, index)">
-              <font-awesome-icon icon="angle-double-up" />
-            </span>
-            <span class="icon-ddown" @click="moveDown(item, index)">
-              <font-awesome-icon icon="angle-double-down" />
-            </span>
-            <span class="icon-up" @click="moveFrom(item, index, -1)">
-              <font-awesome-icon icon="angle-up" />
-            </span>
-            <span class="icon-down" @click="moveFrom(item, index, 1)">
-              <font-awesome-icon icon="angle-down" />
-            </span>
+          <li v-for="item in list.array1" :key="item.key">
+            <listBtn :item="item" @clickChangeBtn="clickItem(item)" />
           </li>
         </ul>
       </div>
       <div class="lists">
         <ul class="list">
           <li v-for="item in list.array2" :key="item.key">
-            <listBtn :item="item" />
-            <span @click="moveTo(item, 1)" class="icon-left">
-              <font-awesome-icon icon="angle-left" />
-            </span>
+            <listBtn :item="item" @clickChangeBtn="clickItem(item)" />
           </li>
         </ul>
       </div>
+
+      <span class="icon-dup" @click="moveUp()">
+        <font-awesome-icon icon="angle-double-up" />
+      </span>
     </div>
-  </container>
+  </div>
 </template>
 
 <script>
@@ -68,17 +54,16 @@ export default {
     };
   },
   methods: {
-    moveUp(item, index) {
-      const spliceItem = this.list.array1.splice(index, 1);
-      this.list.array1.unshift(spliceItem[0]);
+    clickItem(e) {
+      console.log(e);
     },
-    moveDown(item, index) {
-      const spliceItem = this.list.array1.splice(index, 1);
-      this.list.array1.push(spliceItem[0]);
-    },
-    moveFrom(item, index, num) {
-      const spliceItem = this.list.array1.splice(index, 1);
-      this.list.array1.splice(index + num, 0, spliceItem[0]);
+    moveUp() {
+      //console.log(Object.keys(this.list).includes('array1'));
+      Object.keys(this.list).forEach((key) => {
+        console.log(key);
+        console.log(this.list[key]);
+      });
+      //console.log(Object.keys(this.list));
     },
   },
 };
@@ -121,8 +106,8 @@ li + li {
 }
 
 span[class^='icon'] {
-  position: absolute;
-  top: 50%;
+  /*position: absolute;
+  top: 50%;*/
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
@@ -130,7 +115,7 @@ span[class^='icon'] {
   align-items: center;
   background: rgba(255, 255, 255, 0.8);
   color: #444;
-  display: none;
+  /*  display: none;*/
 }
 
 span.icon-right {

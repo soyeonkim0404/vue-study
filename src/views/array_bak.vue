@@ -1,7 +1,7 @@
 <template>
-  <container>
+  <div>
     <div class="abc">
-      <router-link to="/array_bak">지금의 어레이</router-link>
+      <router-link to="/array">지금의 어레이</router-link>
     </div>
     <div class="wrap">
       <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
@@ -39,7 +39,7 @@
         </ul>
       </div>
     </div>
-  </container>
+  </div>
 </template>
 
 <script>

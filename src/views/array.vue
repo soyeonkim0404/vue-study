@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="abc">
-      <router-link to="/array_bak">과거의 어레이</router-link>
+      <router-link to="/array_bak">어레이</router-link>
     </div>
     <div class="wrap">
       <div class="lists">

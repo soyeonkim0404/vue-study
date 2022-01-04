@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="abc">
-      <router-link to="/array">지금의 어레이</router-link>
+      <router-link to="/array">어레이</router-link>
     </div>
     <div class="wrap">
       <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
@@ -64,9 +64,9 @@ export default {
         {
           name: 'array3',
           word: [
-            { key: 1, val: '김소연' },
-            { key: 2, val: '김도은' },
-            { key: 3, val: '이수현' },
+            { key: 1, val: '엣지' },
+            { key: 2, val: '크롬' },
+            { key: 3, val: '사파리' },
           ],
         },
         {

@@ -51,16 +51,18 @@ export default {
           { key: 7, val: '일' },
         ],
       },
+      selectItem: null,
     };
   },
   methods: {
-    clickItem(e) {
-      console.log(e);
+    clickItem(value) {
+      this.selectItem = value;
+      console.log(this.selectItem);
     },
     moveUp() {
-      //console.log(Object.keys(this.list).includes('array1'));
+      console.log(Object.keys(this.selectItem).includes('array1'));
       Object.keys(this.list).forEach((key) => {
-        console.log(key);
+        //console.log(key);
         console.log(this.list[key]);
       });
       //console.log(Object.keys(this.list));

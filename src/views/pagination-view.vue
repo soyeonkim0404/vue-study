@@ -5,7 +5,7 @@
         <InputText
           v-model="keyword"
           class="searchIsBtn"
-          @keyup.enter="onClickSh"
+          @keydown.enter="onClickSh"
         />
         <button type="button" @click="onClickSh">
           <font-awesome-icon icon="arrow-down" />
@@ -26,15 +26,9 @@
 
       <!--컴포넌트 페이징-->
       <Pagination
-        :pageSetting="
-          pageDataSetting(
-            this.totalCount,
-            this.countPerPage,
-            this.pageDft,
-            this.currentPage
-          )
-        "
-        @paging="pagingMethod"
+        :totalCount="totalCount"
+        :countPerPage="countPerPage"
+        v-model="currentPage"
       />
     </div>
   </div>
@@ -55,14 +49,11 @@ export default {
       currentPage: 1,
       countPerPage: 10,
       totalCount: '',
-      pageDft: 10, // 페이징 넘버 갯수
     };
-  },
-  mounted() {
-    this.pagingMethod(this.currentPage);
   },
   methods: {
     async onClickSh() {
+      console.log(123123);
       const data = {
         keyword: this.keyword,
         currentPage: this.currentPage,
@@ -73,45 +64,9 @@ export default {
         } = await searchApi(data);
         this.datasJuso = response.juso;
         this.totalCount = response.common.totalCount;
-        this.countPerPage = response.common.countPerPage;
-        //console.log(response);
       } catch (error) {
         console.log(error);
       }
-    },
-    pagingMethod(page) {
-      /* this.datasJuso.slice(
-        (this.currentPage - 1) * this.countPerPage,
-        this.currentPage * this.countPerPage
-      );*/
-      this.currentPage = page;
-      this.pageDataSetting(
-        this.totalCount,
-        this.countPerPage,
-        this.pageDft,
-        page
-      );
-      this.onClickSh();
-    },
-    pageDataSetting(total, perPage, pageDft, page) {
-      // 전체 갯수 / 기본노출갯수 10개
-      const totalPage = Math.ceil(total / perPage);
-      // 현재 페이지 이전
-      const first = page > 1 ? page - 1 : null;
-      //현재 페이지 다음
-      const end = totalPage !== page ? page + 1 : null;
-      //디폴트 페이지 첫번째 숫자
-      let start = (Math.ceil(page / pageDft) - 1) * pageDft + 1;
-      //디폴트 페이지 마지막 숫자
-      let finish =
-        start + pageDft > totalPage ? totalPage : start + pageDft - 1;
-
-      let list = [];
-      for (let i = start; i <= finish; i++) {
-        list.push(i);
-      }
-
-      return { first, end, list, page };
     },
   },
 };

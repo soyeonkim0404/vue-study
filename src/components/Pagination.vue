@@ -1,28 +1,34 @@
 <template>
-  <div class="pagination" v-if="pageSetting.list.length">
+  <div class="pagination" v-if="pageDataSetting.list.length">
     <span
       class="arrow-btn pre"
-      v-if="pageSetting.first !== null"
-      @click="pageSetting.first !== null ? sendPage(pageSetting.first) : ''"
+      v-if="pageDataSetting.first !== null"
+      @click="
+        pageDataSetting.first !== null ? sendPage(pageDataSetting.first) : ''
+      "
     >
-      <font-awesome-icon icon="angle-left" />
+      <font-awesome-icon icon="angle-left">
+        <span class="blind">이전</span>
+      </font-awesome-icon>
     </span>
     <ul class="pageNm">
       <li
-        v-for="page in pageSetting.list"
+        v-for="page in pageDataSetting.list"
         :key="page"
         @click="sendPage(page)"
-        :class="{ on: page === pageSetting.page }"
+        :class="{ on: page === currentPage }"
       >
         {{ page }}
       </li>
     </ul>
     <span
       class="arrow-btn nex"
-      v-if="pageSetting.end !== null"
-      @click="pageSetting.end !== null ? sendPage(pageSetting.end) : ''"
+      v-if="pageDataSetting.end !== null"
+      @click="pageDataSetting.end !== null ? sendPage(pageDataSetting.end) : ''"
     >
-      <font-awesome-icon icon="angle-right" />
+      <font-awesome-icon icon="angle-right">
+        <span class="blind">다음</span>
+      </font-awesome-icon>
     </span>
   </div>
 </template>
@@ -30,7 +36,32 @@
 <script>
 export default {
   name: 'Pagination',
-  props: ['pageSetting'],
+  data() {
+    return {
+      pageDft: 10,
+    };
+  },
+  props: ['totalCount', 'currentPage', 'countPerPage'],
+  model: {
+    prop: 'currentPage',
+    event: 'paging',
+  },
+  computed: {
+    pageDataSetting() {
+      const totalPage = Math.ceil(this.totalCount / this.countPerPage);
+      const first = this.currentPage > 1 ? this.currentPage - 1 : null;
+      const end = totalPage !== this.currentPage ? this.currentPage + 1 : null;
+      let start =
+        (Math.ceil(this.currentPage / this.pageDft) - 1) * this.pageDft + 1;
+      let finish =
+        start + this.pageDft > totalPage ? totalPage : start + this.pageDft - 1;
+      let list = [];
+      for (let i = start; i <= finish; i++) {
+        list.push(i);
+      }
+      return { first, end, list };
+    },
+  },
   methods: {
     sendPage(page) {
       this.$emit('paging', page);

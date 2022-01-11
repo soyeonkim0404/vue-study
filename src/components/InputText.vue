@@ -1,17 +1,23 @@
 <template>
   <span class="input-text">
-    <input type="text" @input="handleInput" :value="value" v-bind="$attrs" />
+    <input type="text" :value="value" v-on="listeners" />
   </span>
 </template>
 
 <script>
 export default {
   name: 'InputText',
-  inheritAttrs: false,
   props: ['value'],
-  methods: {
-    handleInput(event) {
-      this.$emit('input', event.target.value);
+  computed: {
+    listeners() {
+      return {
+        input: (event) => {
+          this.$emit('input', event.target.value);
+        },
+        keyup: (event) => {
+          this.$emit('keyup', event);
+        },
+      };
     },
   },
 };

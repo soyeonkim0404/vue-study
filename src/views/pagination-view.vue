@@ -5,7 +5,7 @@
         <InputText
           v-model="keyword"
           class="searchIsBtn"
-          @keydown.enter="onClickSh"
+          @keyup.enter="onClickSh"
         />
         <button type="button" @click="onClickSh">
           <font-awesome-icon icon="arrow-down" />
@@ -29,6 +29,7 @@
         :totalCount="totalCount"
         :countPerPage="countPerPage"
         v-model="currentPage"
+        @paging="pagingMethod"
       />
     </div>
   </div>
@@ -51,9 +52,9 @@ export default {
       totalCount: '',
     };
   },
+  computed: {},
   methods: {
     async onClickSh() {
-      console.log(123123);
       const data = {
         keyword: this.keyword,
         currentPage: this.currentPage,
@@ -67,6 +68,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    pagingMethod() {
+      this.onClickSh();
     },
   },
 };

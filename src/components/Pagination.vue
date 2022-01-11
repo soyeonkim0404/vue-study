@@ -1,11 +1,18 @@
 <template>
   <div class="pagination" v-if="pageDataSetting.list.length">
     <span
+      class="arrow-btn first"
+      v-if="pageDataSetting.start !== 1"
+      @click="sendPage(pageDataSetting.start - 10)"
+    >
+      <font-awesome-icon icon="angle-double-left">
+        <span class="blind">이전페이지</span>
+      </font-awesome-icon>
+    </span>
+    <span
       class="arrow-btn pre"
       v-if="pageDataSetting.first !== null"
-      @click="
-        pageDataSetting.first !== null ? sendPage(pageDataSetting.first) : ''
-      "
+      @click="sendPage(pageDataSetting.first)"
     >
       <font-awesome-icon icon="angle-left">
         <span class="blind">이전</span>
@@ -24,10 +31,19 @@
     <span
       class="arrow-btn nex"
       v-if="pageDataSetting.end !== null"
-      @click="pageDataSetting.end !== null ? sendPage(pageDataSetting.end) : ''"
+      @click="sendPage(pageDataSetting.end)"
     >
       <font-awesome-icon icon="angle-right">
         <span class="blind">다음</span>
+      </font-awesome-icon>
+    </span>
+    <span
+      class="arrow-btn last"
+      v-if="pageDataSetting.list.length === this.pageDft"
+      @click="sendPage(pageDataSetting.finish + 1)"
+    >
+      <font-awesome-icon icon="angle-double-right">
+        <span class="blind">다음페이지</span>
       </font-awesome-icon>
     </span>
   </div>
@@ -59,7 +75,7 @@ export default {
       for (let i = start; i <= finish; i++) {
         list.push(i);
       }
-      return { first, end, list };
+      return { first, end, list, start, finish };
     },
   },
   methods: {
@@ -89,7 +105,6 @@ export default {
     margin-right: 10px;
     &.nex {
       margin-left: 10px;
-      margin-right: 0;
     }
   }
   .pageNm {

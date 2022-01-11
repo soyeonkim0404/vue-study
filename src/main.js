@@ -15,6 +15,8 @@ import {
   faCheck,
   faTimes,
   faArrowDown,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -27,7 +29,9 @@ library.add(
   faPlus,
   faCheck,
   faTimes,
-  faArrowDown
+  faArrowDown,
+  faAngleDoubleLeft,
+  faAngleDoubleRight
 );
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';

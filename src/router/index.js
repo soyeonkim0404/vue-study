@@ -9,6 +9,7 @@ import todolist from '@/views/toodoList';
 import pagination from '@/views/pagination-view';
 import arrayRefactoring from '@/views/array-refactoring';
 import dragView from '@/views/drag-view';
+import formPage from '@/views/form-page';
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,10 @@ export const router = new VueRouter({
     {
       path: '/dragView',
       component: dragView,
+    },
+    {
+      path: '/formPage',
+      component: formPage,
     },
   ],
 });

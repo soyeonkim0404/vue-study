@@ -270,6 +270,50 @@ hr {
   padding: 0;
 }
 
+.mt0 {
+  margin-top: 0 !important;
+}
+
+.mt5 {
+  margin-top: 5px !important;
+}
+
+.mt10 {
+  margin-top: 10px !important;
+}
+
+.mt15 {
+  margin-top: 15px !important;
+}
+
+.mt20 {
+  margin-top: 20px !important;
+}
+
+.mt25 {
+  margin-top: 25px !important;
+}
+
+.mt30 {
+  margin-top: 30px !important;
+}
+
+.mt35 {
+  margin-top: 35px !important;
+}
+
+.mt40 {
+  margin-top: 40px !important;
+}
+
+.mt45 {
+  margin-top: 45px !important;
+}
+
+.mt50 {
+  margin-top: 50px !important;
+}
+
 #app {
   display: flex;
   justify-content: center;
@@ -310,6 +354,20 @@ ul {
   height: 1px;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
+}
+
+.custom-chk {
+  display: inline-flex;
+  margin: 0;
+}
+.custom-chk li {
+  display: inline-flex;
+}
+.custom-chk li:first-child label {
+  border-left: solid 1px #ffa8a8;
+}
+.custom-chk li + li {
+  margin: 0 !important;
 }
 
 /*# sourceMappingURL=common.css.map */

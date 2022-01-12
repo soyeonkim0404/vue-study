@@ -54,7 +54,7 @@ export default {
   name: 'Pagination',
   data() {
     return {
-      pageDft: 10,
+      pageDft: 30,
     };
   },
   props: ['totalCount', 'currentPage', 'countPerPage'],

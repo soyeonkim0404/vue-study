@@ -5,7 +5,7 @@
         <InputText
           v-model="keyword"
           class="searchIsBtn"
-          @keyup.enter="onClickSh"
+          @keydown.enter="onClickSh"
         />
         <button type="button" @click="onClickSh">
           <font-awesome-icon icon="arrow-down" />
@@ -52,7 +52,10 @@ export default {
       totalCount: '',
     };
   },
-  computed: {},
+  watch: {},
+  created() {
+    this.onClickSh();
+  },
   methods: {
     async onClickSh() {
       const data = {
@@ -68,6 +71,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      console.log(this.keyword, this.currentPage);
     },
     pagingMethod() {
       this.onClickSh();
@@ -164,7 +168,7 @@ export default {
   }
 }
 
-.list-enter-from,
+/*.list-enter-from,
 .list-leave-to {
   transform: scale(0.1);
   opacity: 0;
@@ -184,5 +188,5 @@ export default {
 
 .list-move {
   transition: all 3s ease;
-}
+}*/
 </style>

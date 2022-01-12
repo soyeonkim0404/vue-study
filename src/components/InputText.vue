@@ -11,14 +11,16 @@ export default {
   computed: {
     listeners() {
       return {
+        ...this.$listeners,
         input: (event) => {
+          this.$emit('test', event.target.value);
           this.$emit('input', event.target.value);
-        },
-        keyup: (event) => {
-          this.$emit('keyup', event);
         },
       };
     },
+  },
+  model: {
+    event: 'test',
   },
 };
 </script>

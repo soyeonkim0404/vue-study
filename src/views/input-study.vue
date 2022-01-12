@@ -161,22 +161,6 @@ export default {
     }
   }
 
-  .custom-chk {
-    display: inline-flex;
-    margin: 0;
-    li {
-      display: inline-flex;
-      &:first-child {
-        label {
-          border-left: solid 1px #ffa8a8;
-        }
-      }
-      & + li {
-        margin: 0;
-      }
-    }
-  }
-
   .delivery-sel {
     display: inline-flex;
     margin-top: 10px;
@@ -201,13 +185,6 @@ export default {
 
   .checkbox-area {
     margin-top: 30px;
-  }
-
-  .allChecked {
-    background: #ffa8a8;
-    span {
-      color: #fff;
-    }
   }
 }
 </style>

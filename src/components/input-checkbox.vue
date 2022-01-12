@@ -1,27 +1,33 @@
 <template>
   <label
     :class="{
-      checkedStyle: checkedEvt,
+      'input-checkbox': true,
+      'all-check': allCheck,
+      checked: checkedEvt,
     }"
   >
     <input
       type="checkbox"
-      v-bind="$attrs"
-      :checked="checked"
-      @change="onChange"
-      :value="value"
+      :checked="checkedEvt"
+      :disabled="disabled"
+      v-on="listeners"
     />
     <span><slot></slot></span>
   </label>
 </template>
+
 <script>
 export default {
-  name: 'InputCheckbox',
-  props: ['checked', 'value'],
-  inheritAttrs: false,
+  name: 'input-checkbox',
+  props: ['checked', 'disabled', 'value'],
   model: {
     prop: 'checked',
-    event: 'checkChange',
+    event: 'change',
+  },
+  data() {
+    return {
+      allCheck: false,
+    };
   },
   computed: {
     checkboxType() {
@@ -33,29 +39,29 @@ export default {
       }
       return this.checked.some((el) => el === this.value);
     },
-  },
-  methods: {
-    onChange(e) {
-      if (this.checkboxType) {
-        //console.log(e.target.checked);
-        this.$emit('checkChange', e.target.checked);
-      } else {
-        //console.log(this.checked);
-        const idx = this.checked.indexOf(this.value);
-        if (idx === -1) {
-          this.checked.push(this.value);
-        } else {
-          this.checked.splice(idx, 1);
-        }
-        this.$emit('checkChange', this.checked);
-      }
+    listeners() {
+      return {
+        change: (event) => {
+          if (this.checkboxType) {
+            this.$emit('checkChange', event.target.checked);
+          } else {
+            const idx = this.checked.indexOf(this.value);
+            if (idx === -1) {
+              this.checked.push(this.value);
+            } else {
+              this.checked.splice(idx, 1);
+            }
+            this.$emit('checkChange', this.checked);
+          }
+        },
+      };
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.buttonStyle {
+.input-checkbox {
   position: relative;
   display: flex;
   width: 50px;
@@ -69,7 +75,10 @@ export default {
   cursor: pointer;
   input {
     position: absolute;
-    left: -9999px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     opacity: 0;
   }
   span {
@@ -77,7 +86,7 @@ export default {
     padding: 0;
     color: #ffa8a8;
   }
-  &.checkedStyle {
+  &.checked {
     border: solid 1px #ff8787;
     border-left: none;
     background: #ffa8a8;

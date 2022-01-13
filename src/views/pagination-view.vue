@@ -5,23 +5,23 @@
         <InputText
           v-model="keyword"
           class="searchIsBtn"
-          @keydown.enter="onClickSh"
+          @keydown.enter="onEvt"
         />
-        <button type="button" @click="onClickSh">
+        <button type="button" @click="onEvt">
           <font-awesome-icon icon="arrow-down" />
         </button>
       </div>
 
       <!--리스트-->
       <div id="list">
-        <transition-group name="list" tag="ul" class="jusoList">
+        <ul class="result">
           <li v-for="(item, index) in datasJuso" :key="index">
             <span>
               {{ item.zipNo }}
               <span>{{ item.roadAddrPart1 }}</span>
             </span>
           </li>
-        </transition-group>
+        </ul>
       </div>
 
       <!--컴포넌트 페이징-->
@@ -52,29 +52,29 @@ export default {
       totalCount: '',
     };
   },
-  watch: {},
-  created() {
-    this.onClickSh();
-  },
   methods: {
-    async onClickSh() {
-      const data = {
-        keyword: this.keyword,
-        currentPage: this.currentPage,
-      };
+    async getData() {
       try {
         const {
           data: { results: response },
-        } = await searchApi(data);
+        } = await searchApi({
+          keyword: this.keyword,
+          currentPage: this.currentPage,
+        });
         this.datasJuso = response.juso;
         this.totalCount = response.common.totalCount;
       } catch (error) {
         console.log(error);
       }
-      console.log(this.keyword, this.currentPage);
+    },
+    onEvt() {
+      // 검색시
+      this.currentPage = 1;
+      this.getData();
     },
     pagingMethod() {
-      this.onClickSh();
+      // 페이지 이동시
+      this.getData();
     },
   },
 };
@@ -96,11 +96,7 @@ export default {
   }
 }
 
-.jusoList {
-  padding: 0 0 0 15px;
-}
-
-.jusoList {
+.result {
   padding: 0 0 0 15px;
   li {
     margin-top: 20px;
@@ -167,26 +163,4 @@ export default {
     }
   }
 }
-
-/*.list-enter-from,
-.list-leave-to {
-  transform: scale(0.1);
-  opacity: 0;
-}
-.list-enter-to,
-.list-leave-from {
-  transform: scale(1);
-  opacity: 1;
-}
-.list-enter-active {
-  transition: all 3s ease;
-}
-
-.list-leave-active {
-  transition: all 3s ease;
-}
-
-.list-move {
-  transition: all 3s ease;
-}*/
 </style>

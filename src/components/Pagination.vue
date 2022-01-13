@@ -1,26 +1,26 @@
 <template>
-  <div class="pagination" v-if="pageDataSetting.list.length">
-    <span
+  <div class="pagination" v-if="paginationNumbering.list.length">
+    <button
       class="arrow-btn first"
-      v-if="pageDataSetting.start !== 1"
-      @click="sendPage(pageDataSetting.start - 10)"
+      v-if="paginationNumbering.start !== 1"
+      @click="sendPage(paginationNumbering.start - 10)"
     >
       <font-awesome-icon icon="angle-double-left">
         <span class="blind">이전페이지</span>
       </font-awesome-icon>
-    </span>
-    <span
+    </button>
+    <button
       class="arrow-btn pre"
-      v-if="pageDataSetting.first !== null"
-      @click="sendPage(pageDataSetting.first)"
+      v-if="currentPage !== 1"
+      @click="sendPage(currentPage - 1)"
     >
       <font-awesome-icon icon="angle-left">
         <span class="blind">이전</span>
       </font-awesome-icon>
-    </span>
+    </button>
     <ul class="pageNm">
       <li
-        v-for="page in pageDataSetting.list"
+        v-for="page in paginationNumbering.list"
         :key="page"
         @click="sendPage(page)"
         :class="{ on: page === currentPage }"
@@ -28,24 +28,24 @@
         {{ page }}
       </li>
     </ul>
-    <span
+    <button
       class="arrow-btn nex"
-      v-if="pageDataSetting.end !== null"
-      @click="sendPage(pageDataSetting.end)"
+      v-if="currentPage !== totalPage"
+      @click="sendPage(currentPage + 1)"
     >
       <font-awesome-icon icon="angle-right">
         <span class="blind">다음</span>
       </font-awesome-icon>
-    </span>
-    <span
+    </button>
+    <button
       class="arrow-btn last"
-      v-if="pageDataSetting.list.length === this.pageDft"
-      @click="sendPage(pageDataSetting.finish + 1)"
+      v-if="paginationNumbering.list.length === pageDft"
+      @click="sendPage(paginationNumbering.finish + 1)"
     >
       <font-awesome-icon icon="angle-double-right">
         <span class="blind">다음페이지</span>
       </font-awesome-icon>
-    </span>
+    </button>
   </div>
 </template>
 
@@ -54,7 +54,7 @@ export default {
   name: 'Pagination',
   data() {
     return {
-      pageDft: 30,
+      pageDft: 10,
     };
   },
   props: ['totalCount', 'currentPage', 'countPerPage'],
@@ -63,19 +63,21 @@ export default {
     event: 'paging',
   },
   computed: {
-    pageDataSetting() {
-      const totalPage = Math.ceil(this.totalCount / this.countPerPage);
-      const first = this.currentPage > 1 ? this.currentPage - 1 : null;
-      const end = totalPage !== this.currentPage ? this.currentPage + 1 : null;
+    totalPage() {
+      return Math.ceil(this.totalCount / this.countPerPage);
+    },
+    paginationNumbering() {
       let start =
         (Math.ceil(this.currentPage / this.pageDft) - 1) * this.pageDft + 1;
       let finish =
-        start + this.pageDft > totalPage ? totalPage : start + this.pageDft - 1;
+        start + this.pageDft > this.totalPage
+          ? this.totalPage
+          : start + this.pageDft - 1;
       let list = [];
       for (let i = start; i <= finish; i++) {
         list.push(i);
       }
-      return { first, end, list, start, finish };
+      return { start, finish, list };
     },
   },
   methods: {
@@ -92,7 +94,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 30px;
-  span {
+  .arrow-btn {
     display: flex;
     justify-content: center;
     align-items: center;

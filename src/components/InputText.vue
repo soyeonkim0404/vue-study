@@ -13,14 +13,10 @@ export default {
       return {
         ...this.$listeners,
         input: (event) => {
-          this.$emit('test', event.target.value);
           this.$emit('input', event.target.value);
         },
       };
     },
-  },
-  model: {
-    event: 'test',
   },
 };
 </script>

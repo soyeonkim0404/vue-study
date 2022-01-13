@@ -5,9 +5,7 @@
         class="buttonStyle all"
         v-model="weekDayItems.week_allChk"
         :weekDayItems="
-          weekDayItems.option.filter((el) => {
-            return !el.disabled;
-          })
+          weekDayItems.option.filter((el) => !el.disabled).map((el) => el.value)
         "
         :weekChkArray.sync="weekDayItems.weekDay"
       >
@@ -16,7 +14,11 @@
 
       <ul class="custom-chk">
         <li v-for="(item, index) in weekDayItems.option" :key="index">
-          <inputCheckbox v-model="weekDayItems.weekDay" :value="item.value">
+          <inputCheckbox
+            v-model="weekDayItems.weekDay"
+            :value="item.value"
+            :disabled="item.disabled"
+          >
             {{ item.label }}
           </inputCheckbox>
         </li>
@@ -27,6 +29,7 @@
 </template>
 
 <script>
+import { testApi } from '@/api';
 import formFile from '../components/form-file';
 import inputCheckbox from '../components/input-checkbox';
 import InputAllCheckbox from '../components/InputAllCheckbox';
@@ -42,6 +45,7 @@ export default {
           {
             label: '월',
             value: 'monday',
+            disabled: true,
           },
           {
             label: '화',
@@ -69,21 +73,23 @@ export default {
           },
         ],
       },
+      testApi: null,
     };
   },
+  created() {
+    this.testCallApi();
+  },
   methods: {
-    allChkBtn() {
-      this.weekDayItems.weekDay = [];
-      if (this.weekDayItems.week_allChk) {
-        this.weekDayItems.option.forEach((e) => {
-          this.weekDayItems.weekDay.push(e.value);
+    async testCallApi() {
+      try {
+        const { data: response } = await testApi({
+          qnaSno: 1,
         });
+        //console.log(response);
+      } catch (error) {
+        console.log(error);
       }
     },
-    /* allChkOnChange() {
-      this.weekDayItems.week_allChk =
-        this.weekDayItems.option.length === this.weekDayItems.weekDay.length;
-    },*/
   },
 };
 </script>

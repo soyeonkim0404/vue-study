@@ -47,16 +47,13 @@ export default {
       const fileNm = e.target.files[0].name;
       this.fileType = fileNm.substring(fileNm.lastIndexOf('.'), fileNm.length);
       this.fileName = fileNm.split(this.fileType)[0];
-
       const sameChk = this.arrayFile.some((v) => {
         return v.id === e.target.files[0].lastModified;
       });
-
       if (sameChk) {
         alert('이미 첨부 된 파일입니다.');
         return;
       }
-
       this.arrayFile = [
         ...this.arrayFile,
         {
@@ -65,6 +62,7 @@ export default {
           type: this.fileType,
         },
       ];
+      this.deleteFile();
     },
     deleteFile() {
       this.fileName = '';

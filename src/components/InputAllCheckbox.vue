@@ -16,20 +16,18 @@ export default {
       );
     },
   },
-  /*computed: {
+  computed: {
     listeners() {
       return {
-        change: () => {
-          this.weekDayItems.weekDay = [];
-          if (this.weekDayItems.week_allChk) {
-            this.weekDayItems.option.forEach((e) => {
-              this.weekDayItems.weekDay.push(e.value);
-            });
-          }
-          this.$emit('change', this.weekDayItems.weekDay);
+        ...this.$listeners,
+        change: (event) => {
+          this.$emit(
+            'update:weekChkArray',
+            event.target.checked ? this.weekDayItems : []
+          );
         },
       };
     },
-  },*/
+  },
 };
 </script>

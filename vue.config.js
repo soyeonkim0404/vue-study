@@ -9,4 +9,13 @@ module.exports = {
       },
     },
   },
+  devServer: {
+    port: 8082,
+    proxy: {
+      '/b2c/api': {
+        target: process.env.VUE_APP_API_URL,
+        changeOrigin: true,
+      },
+    },
+  },
 };

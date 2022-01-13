@@ -4,6 +4,7 @@
       'input-checkbox': true,
       'all-check': allCheck,
       checked: checkedEvt,
+      disabled: disabled,
     }"
   >
     <input
@@ -41,6 +42,7 @@ export default {
     },
     listeners() {
       return {
+        ...this.$listeners,
         change: (event) => {
           if (this.checkboxType) {
             this.$emit('checkChange', event.target.checked);
@@ -93,6 +95,9 @@ export default {
     span {
       color: #fff;
     }
+  }
+  &.disabled {
+    opacity: 0.2;
   }
 }
 </style>

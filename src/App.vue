@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ dark: $route.meta.bg === 'dark' }">
     <router-view />
   </div>
 </template>

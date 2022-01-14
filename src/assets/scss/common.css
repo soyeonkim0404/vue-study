@@ -315,10 +315,16 @@ hr {
 }
 
 #app {
+  width: 100%;
+  min-height: 100vh;
+}
+#app.dark {
+  background: #212529;
+}
+#app .content {
   display: flex;
   justify-content: center;
-  align-content: center;
-  width: 100%;
+  align-items: center;
   min-height: 100vh;
 }
 #app li {
@@ -356,18 +362,31 @@ ul {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-.custom-chk {
+.checkbox-area {
+  display: flex;
+}
+
+.week-chk {
   display: inline-flex;
   margin: 0;
 }
-.custom-chk li {
+.week-chk li {
   display: inline-flex;
 }
-.custom-chk li:first-child label {
-  border-left: solid 1px #ffa8a8;
+.week-chk li:not(:first-child) .input-checkbox {
+  border-left: none;
 }
-.custom-chk li + li {
-  margin: 0 !important;
+.week-chk li + li {
+  margin: 0;
+}
+
+.radio-list {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}
+.radio-list li + li {
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=common.css.map */

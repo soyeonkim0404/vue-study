@@ -82,7 +82,6 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 500px;
   .attach {
     display: flex;
     width: 100%;
@@ -91,11 +90,11 @@ export default {
       justify-content: space-between;
       align-items: center;
       flex: 1 1 auto;
-      height: 44px;
+      height: 50px;
       border-radius: 10px;
-      border: solid 1px #ddd;
+      border: solid 1px #212529;
       box-sizing: border-box;
-      background-color: #f7f7f7;
+      background-color: #454c53;
       .value {
         width: 100%;
         position: absolute;
@@ -139,14 +138,14 @@ export default {
     }
     .btn-attach {
       display: inline-block;
-      padding: 0 15px;
+      padding: 0 25px;
       font-weight: 700;
       text-align: center;
       box-sizing: border-box;
       overflow: hidden;
-      background: black;
+      background: #212529;
       color: white;
-      height: 44px;
+      height: 50px;
       border-radius: 10px;
       margin-left: 10px;
     }
@@ -164,12 +163,13 @@ export default {
       width: 100%;
       min-height: 30px;
       line-height: 1.3;
-      background-color: #f7f7f7;
-      border: 1px solid #ddd;
+      background-color: #454c53;
+      border: 1px solid #212529;
       border-radius: 10px;
-      padding: 20px;
+      padding: 15px 20px;
       span {
         word-break: break-all;
+        color: #fff;
       }
       & + li {
         margin-top: 15px;

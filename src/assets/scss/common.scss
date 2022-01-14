@@ -36,12 +36,17 @@
 }
 
 #app {
-  display: flex;
-  justify-content: center;
-  align-content: center;
   width: 100%;
   min-height: 100vh;
-
+  &.dark {
+    background: #212529;
+  }
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
   li {
     font-family: 'SpoqaHanSansNeo', sans-serif;
     list-style: none;
@@ -80,18 +85,33 @@ ul {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-.custom-chk {
+.checkbox-area {
+  display: flex;
+}
+
+.week-chk {
   display: inline-flex;
   margin: 0;
   li {
     display: inline-flex;
-    &:first-child {
-      label {
-        border-left: solid 1px #ffa8a8;
+    &:not(:first-child) {
+      .input-checkbox {
+        border-left: none;
       }
     }
     & + li {
-      margin: 0 !important;
+      margin: 0;
+    }
+  }
+}
+
+.radio-list {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  li {
+    & + li {
+      margin-left: 20px;
     }
   }
 }

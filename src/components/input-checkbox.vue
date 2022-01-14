@@ -11,8 +11,12 @@
       type="checkbox"
       :checked="checkedEvt"
       :disabled="disabled"
+      v-bind="$attrs"
       v-on="listeners"
     />
+    <template>
+      <i class="icon"></i>
+    </template>
     <span><slot></slot></span>
   </label>
 </template>
@@ -20,7 +24,8 @@
 <script>
 export default {
   name: 'input-checkbox',
-  props: ['checked', 'disabled', 'value'],
+  inheritAttrs: false,
+  props: ['checked', 'disabled', 'value', 'chkType'],
   model: {
     prop: 'checked',
     event: 'change',
@@ -65,15 +70,9 @@ export default {
 <style scoped lang="scss">
 .input-checkbox {
   position: relative;
-  display: flex;
-  width: 50px;
-  height: 50px;
-  padding: 15px 22px;
-  box-sizing: border-box;
-  border: solid 1px #ffa8a8;
-  border-left: none;
-  justify-content: center;
-  align-items: center;
+  padding-left: 26px;
+  font-size: 14px;
+  line-height: 20px;
   cursor: pointer;
   input {
     position: absolute;
@@ -83,21 +82,106 @@ export default {
     left: 0;
     opacity: 0;
   }
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: inline-block;
+    transform: translateY(-50%);
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px auto;
+    background-image: url('../assets/images/checkbox-off.png');
+  }
   span {
-    font-size: 16px;
-    padding: 0;
-    color: #ffa8a8;
+    color: #fff;
   }
   &.checked {
-    border: solid 1px #ff8787;
-    border-left: none;
-    background: #ffa8a8;
-    span {
-      color: #fff;
+    .icon {
+      background-image: url('../assets/images/checkbox-on.png');
     }
   }
   &.disabled {
-    opacity: 0.2;
+    span {
+    }
+  }
+  /*all check box*/
+  &.all-type2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 50px;
+    border: solid 1px #212529;
+    background: #343a40;
+    padding: 0;
+    margin-right: 10px;
+    .icon {
+      opacity: 0;
+    }
+    span {
+      font-size: 16px;
+      color: #fff;
+    }
+    &.checked {
+      background: #20c997;
+    }
+  }
+  /*커스텀 스타일*/
+  &.type2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 15px 22px;
+    box-sizing: border-box;
+    border: solid 1px #212529;
+    background: #343a40;
+    .icon {
+      opacity: 0;
+    }
+    span {
+      font-size: 16px;
+      padding: 0;
+      color: #fff;
+    }
+    &.checked {
+      background: #20c997;
+      span {
+        color: #fff;
+      }
+    }
+    &.disabled {
+      &:before {
+        content: '';
+        display: block;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 50px;
+        background: #868e96;
+        position: absolute;
+        transform: rotate(45deg) translateX(-50%);
+      }
+      &:after {
+        content: '';
+        display: block;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 50px;
+        background: #868e96;
+        position: absolute;
+        transform: rotate(135deg) translateX(-50%);
+      }
+      span {
+        opacity: 0.5;
+      }
+    }
   }
 }
 </style>

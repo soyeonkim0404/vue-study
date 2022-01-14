@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Home from '../views/home.vue';
 import Array from '../views/array.vue';
 import AddressApi from '../views/address-api.vue';
-import InputStudy from '../views/input-study.vue';
 import calculator from '../views/calculator.vue';
 import todolist from '@/views/toodoList';
 import pagination from '@/views/pagination-view';
@@ -29,10 +28,6 @@ export const router = new VueRouter({
       component: AddressApi,
     },
     {
-      path: '/inputStudy',
-      component: InputStudy,
-    },
-    {
       path: '/calculator',
       component: calculator,
     },
@@ -43,6 +38,9 @@ export const router = new VueRouter({
     {
       path: '/pagination',
       component: pagination,
+      meta: {
+        bg: 'dark',
+      },
     },
     {
       path: '/arrayRefactoring',
@@ -55,6 +53,9 @@ export const router = new VueRouter({
     {
       path: '/formPage',
       component: formPage,
+      meta: {
+        bg: 'dark',
+      },
     },
   ],
 });

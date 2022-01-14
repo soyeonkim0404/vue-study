@@ -15,7 +15,6 @@
       <router-link to="/calculator" tag="li">Calculator</router-link>
       <router-link to="/addressApi" tag="li">Address-api</router-link>
       <router-link to="/arrayRefactoring" tag="li">Array methods</router-link>
-      <router-link to="/inputStudy" tag="li">Checkbox, radio</router-link>
       <router-link to="/pagination" tag="li">component pagination</router-link>
       <router-link to="/formPage" tag="li">form page</router-link>
     </ul>

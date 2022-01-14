@@ -1,6 +1,6 @@
 <template>
-  <div id="api">
-    <div class="content">
+  <div class="content">
+    <div class="row">
       <div class="search-area">
         <InputText
           v-model="keyword"
@@ -11,7 +11,6 @@
           <font-awesome-icon icon="arrow-down" />
         </button>
       </div>
-
       <!--리스트-->
       <div id="list">
         <ul class="result">
@@ -23,7 +22,6 @@
           </li>
         </ul>
       </div>
-
       <!--컴포넌트 페이징-->
       <Pagination
         :totalCount="totalCount"
@@ -81,85 +79,77 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#api {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background: #212529;
-  .content {
+.content {
+  .row {
     width: 620px;
     background: #343a40;
     margin: 0 auto;
     border-radius: 10px;
     padding: 20px;
   }
-}
-
-.result {
-  padding: 0 0 0 15px;
-  li {
-    margin-top: 20px;
-    & + li {
-      margin-top: 25px;
+  .result {
+    padding: 0 0 0 15px;
+    li {
+      margin-top: 20px;
+      & + li {
+        margin-top: 25px;
+      }
+      span {
+        border: none;
+        padding: 0;
+        margin: 0;
+        color: #ffffff;
+        font-size: 1.2rem;
+        cursor: pointer;
+        font-weight: bold;
+        &:hover {
+          opacity: 0.8;
+        }
+        span {
+          margin-left: 25px;
+          font-weight: normal;
+        }
+      }
     }
-    span {
-      border: none;
-      padding: 0;
-      margin: 0;
-      color: #ffffff;
-      font-size: 1.2rem;
-      cursor: pointer;
-      font-weight: bold;
+  }
+  .btn-cover {
+    margin-top: 1.5rem;
+    text-align: center;
+    .page-btn {
+      width: 5rem;
+      height: 2.5rem;
+      letter-spacing: 0.5px;
+      background: #212529;
+      color: #fff;
+      border-radius: 5px;
       &:hover {
         opacity: 0.8;
       }
-      span {
-        margin-left: 25px;
-        font-weight: normal;
-      }
+    }
+    .page-count {
+      padding: 0 1rem;
+      color: #fff;
     }
   }
-}
-
-.btn-cover {
-  margin-top: 1.5rem;
-  text-align: center;
-  .page-btn {
-    width: 5rem;
-    height: 2.5rem;
-    letter-spacing: 0.5px;
-    background: #212529;
-    color: #fff;
-    border-radius: 5px;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-  .page-count {
-    padding: 0 1rem;
-    color: #fff;
-  }
-}
-
-.search-area {
-  display: flex;
-  align-items: center;
-  button {
-    display: inline-flex;
-    justify-content: center;
+  .search-area {
+    display: flex;
     align-items: center;
-    width: 60px;
-    height: 60px;
-    margin-left: calc(100% - 86% - 60px);
-    background: #495057;
-    color: #fff;
-    font-size: 1.2rem;
-    border-radius: 10px;
-    &:hover,
-    &:active,
-    &:focus {
-      box-shadow: 0 5px 16px rgba(97, 97, 97, 0.5);
+    button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      margin-left: calc(100% - 86% - 60px);
+      background: #495057;
+      color: #fff;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      &:hover,
+      &:active,
+      &:focus {
+        box-shadow: 0 5px 16px rgba(97, 97, 97, 0.5);
+      }
     }
   }
 }

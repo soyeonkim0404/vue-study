@@ -8,6 +8,9 @@ export default {
     prop: 'checked',
     event: 'change',
   },
+  created() {
+    this.allCheck = true;
+  },
   watch: {
     weekChkArray() {
       this.$emit(

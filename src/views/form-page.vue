@@ -23,13 +23,14 @@
           <div class="checkbox-area">
             <InputAllCheckbox
               class="all-type2"
-              v-model="weekDayItems.week_allChk"
+              v-model="weekDayItems.week_allChk.value"
               :weekDayItems="
                 weekDayItems.text
-                  .filter((el) => !el.disabled)
+                  .filter((el) => !el.disabled && !el.dataDisabled)
                   .map((el) => el.value)
               "
               :weekChkArray.sync="weekDayItems.weekDay"
+              :disabled="weekDayItems.week_allChk.disabled"
             >
               전체 체크
             </InputAllCheckbox>
@@ -39,6 +40,7 @@
                   v-model="weekDayItems.weekDay"
                   :value="item.value"
                   :disabled="item.disabled"
+                  :dataDisabled="item.dataDisabled"
                   class="type2"
                 >
                   {{ item.label }}
@@ -47,7 +49,11 @@
             </ul>
           </div>
           <!--디스에이블드 체크-->
-          <inputCheckbox v-model="weekDayItems.disabledOption.chk" class="mt10">
+          <inputCheckbox
+            v-model="weekDayItems.disabledOption.chk"
+            class="mt10"
+            @formChange="allDisable"
+          >
             {{ weekDayItems.disabledOption.disabledText }}
           </inputCheckbox>
         </template>
@@ -63,7 +69,6 @@
 </template>
 
 <script>
-import { testApi } from '@/api';
 import formFile from '../components/form-file';
 import inputCheckbox from '../components/input-checkbox';
 import InputAllCheckbox from '../components/InputAllCheckbox';
@@ -96,13 +101,15 @@ export default {
         ],
       },
       weekDayItems: {
-        week_allChk: false,
+        week_allChk: {
+          value: false,
+        },
         weekDay: [],
         text: [
           {
             label: '월',
             value: 'monday',
-            disabled: true,
+            dataDisabled: true,
           },
           {
             label: '화',
@@ -137,18 +144,19 @@ export default {
       testApi: null,
     };
   },
-  created() {
-    this.testCallApi();
-  },
   methods: {
-    async testCallApi() {
-      try {
-        const { data: response } = await testApi({
-          qnaSno: 1,
+    allDisable(event) {
+      if (event) {
+        this.weekDayItems.week_allChk.disabled = true;
+        const filterArray = this.weekDayItems.text.filter(
+          (el) => !el.dataDisabled
+        );
+        filterArray.forEach((el) => (el.disabled = true));
+      } else {
+        this.weekDayItems.week_allChk.disabled = false;
+        this.weekDayItems.text.forEach((el) => {
+          return (el.disabled = false);
         });
-        console.log(response);
-      } catch (error) {
-        console.log(error);
       }
     },
   },
@@ -156,7 +164,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .row {
-  width: 70%;
+  width: 700px;
   margin: 0 auto;
   padding: 20px;
   background: #343a40;

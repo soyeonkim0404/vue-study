@@ -4,7 +4,7 @@
       'input-checkbox': true,
       'all-check': allCheck,
       checked: checkedEvt,
-      disabled: disabled,
+      disabled: disabled || dataDisabled,
     }"
   >
     <input
@@ -25,10 +25,17 @@
 export default {
   name: 'input-checkbox',
   inheritAttrs: false,
-  props: ['checked', 'disabled', 'value', 'chkType'],
+  props: {
+    checked: {
+      type: [Boolean, Array],
+    },
+    disabled: Boolean,
+    value: String,
+    dataDisabled: Boolean, //data에서 내려준 disabled
+  },
   model: {
     prop: 'checked',
-    event: 'change',
+    event: 'formChange',
   },
   data() {
     return {
@@ -50,7 +57,8 @@ export default {
         ...this.$listeners,
         change: (event) => {
           if (this.checkboxType) {
-            this.$emit('checkChange', event.target.checked);
+            this.$emit('change', event);
+            this.$emit('formChange', event.target.checked);
           } else {
             const idx = this.checked.indexOf(this.value);
             if (idx === -1) {
@@ -58,7 +66,11 @@ export default {
             } else {
               this.checked.splice(idx, 1);
             }
-            this.$emit('checkChange', this.checked);
+            this.$emit('change', event);
+            this.$emit('formChange', this.checked);
+          }
+          if (this.dataDisabled) {
+            this.$emit('formChange', this.disabled);
           }
         },
       };
@@ -128,6 +140,33 @@ export default {
     }
     &.checked {
       background: #20c997;
+    }
+    &.disabled {
+      &:before {
+        content: '';
+        display: block;
+        top: -36px;
+        left: 59px;
+        width: 1px;
+        height: 118px;
+        background: #868e96;
+        position: absolute;
+        transform: rotate(70deg);
+      }
+      &:after {
+        content: '';
+        display: block;
+        top: -36px;
+        left: 59px;
+        width: 1px;
+        height: 118px;
+        background: #868e96;
+        position: absolute;
+        transform: rotate(109deg);
+      }
+      span {
+        opacity: 0.5;
+      }
     }
   }
   /*커스텀 스타일*/

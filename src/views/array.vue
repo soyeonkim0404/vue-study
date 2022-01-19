@@ -39,6 +39,7 @@
 
 <script>
 import listBtn from '../components/listBtn';
+import { testApi } from '@/api';
 
 export default {
   name: 'array',
@@ -79,7 +80,20 @@ export default {
       ],
     };
   },
+  created() {
+    this.testCallApi();
+  },
   methods: {
+    async testCallApi() {
+      try {
+        const { data: response } = await testApi({
+          qnaSno: 1,
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     moveTo(listIndex, index, num) {
       const item = this.lists[listIndex].word.splice(index, 1);
       this.lists[listIndex + num].word.push(item[0]);

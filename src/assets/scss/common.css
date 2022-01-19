@@ -315,11 +315,8 @@ hr {
 }
 
 #app {
-  width: 100%;
+  min-width: 1024px;
   min-height: 100vh;
-}
-#app.dark {
-  background: #212529;
 }
 #app .content {
   display: flex;
@@ -347,13 +344,11 @@ hr {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-
-ul {
+#app ul {
   padding: 0;
   margin: 0;
 }
-
-.blind {
+#app .blind {
   position: absolute !important;
   z-index: -1;
   width: 1px;
@@ -361,32 +356,63 @@ ul {
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
 }
-
-.checkbox-area {
+#app .checkbox-area {
   display: flex;
 }
-
-.week-chk {
+#app .week-chk {
   display: inline-flex;
   margin: 0;
 }
-.week-chk li {
+#app .week-chk li {
   display: inline-flex;
 }
-.week-chk li:not(:first-child) .input-checkbox {
+#app .week-chk li:not(:first-child) .input-checkbox {
   border-left: none;
 }
-.week-chk li + li {
+#app .week-chk li:first-child .input-checkbox.type2 {
+  border-radius: 10px 0 0 10px;
+}
+#app .week-chk li:last-child .input-checkbox.type2 {
+  border-radius: 0 10px 10px 0;
+}
+#app .week-chk li + li {
   margin: 0;
 }
-
-.radio-list {
+#app .radio-list {
   display: flex;
   align-items: center;
   min-height: 40px;
 }
-.radio-list li + li {
+#app .radio-list li + li {
   margin-left: 20px;
+}
+#app .bullet-txt {
+  position: relative;
+  display: block;
+  font-size: 12px;
+  color: #888;
+  padding-left: 10px;
+}
+#app .bullet-txt::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  background: #bbb;
+  border-radius: 100%;
+  transform: translateY(-50%);
+}
+#app.dark {
+  background: #212529;
+}
+#app.dark input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+#app.dark input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 /*# sourceMappingURL=common.css.map */

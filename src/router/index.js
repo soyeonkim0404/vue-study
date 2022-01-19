@@ -9,6 +9,7 @@ import pagination from '@/views/pagination-view';
 import arrayRefactoring from '@/views/array-refactoring';
 import dragView from '@/views/drag-view';
 import formPage from '@/views/form-page';
+import joinclone from '@/views/join_clone';
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,13 @@ export const router = new VueRouter({
     {
       path: '/formPage',
       component: formPage,
+      meta: {
+        bg: 'dark',
+      },
+    },
+    {
+      path: '/joinclone',
+      component: joinclone,
       meta: {
         bg: 'dark',
       },

@@ -1,13 +1,19 @@
 <template>
-  <span class="input-text">
-    <input type="text" :value="value" v-on="listeners" />
+  <span :class="{ 'input-text': true, disabled: disabled }">
+    <input
+      type="text"
+      :value="value"
+      v-on="listeners"
+      :disabled="disabled"
+      :placeholder="placeholder"
+    />
   </span>
 </template>
 
 <script>
 export default {
   name: 'InputText',
-  props: ['value'],
+  props: ['value', 'disabled', 'placeholder'],
   computed: {
     listeners() {
       return {
@@ -55,6 +61,11 @@ export default {
   &.searchIsBtn {
     display: inline-flex;
     width: 86%;
+  }
+  &.disabled {
+    input {
+      opacity: 0.3;
+    }
   }
 }
 </style>

@@ -36,11 +36,8 @@
 }
 
 #app {
-  width: 100%;
+  min-width: 1024px;
   min-height: 100vh;
-  &.dark {
-    background: #212529;
-  }
   .content {
     display: flex;
     justify-content: center;
@@ -51,14 +48,12 @@
     font-family: 'SpoqaHanSansNeo', sans-serif;
     list-style: none;
   }
-
   .wrap {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
   }
-
   .page-title {
     background: #222;
     color: #fff;
@@ -69,49 +64,90 @@
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-}
 
-ul {
-  padding: 0;
-  margin: 0;
-}
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  .blind {
+    position: absolute !important;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  .checkbox-area {
+    display: flex;
+  }
 
-.blind {
-  position: absolute !important;
-  z-index: -1;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-}
-
-.checkbox-area {
-  display: flex;
-}
-
-.week-chk {
-  display: inline-flex;
-  margin: 0;
-  li {
+  .week-chk {
     display: inline-flex;
-    &:not(:first-child) {
-      .input-checkbox {
-        border-left: none;
+    margin: 0;
+    li {
+      display: inline-flex;
+      &:not(:first-child) {
+        .input-checkbox {
+          border-left: none;
+        }
+      }
+      &:first-child {
+        .input-checkbox {
+          &.type2 {
+            border-radius: 10px 0 0 10px;
+          }
+        }
+      }
+      &:last-child {
+        .input-checkbox {
+          &.type2 {
+            border-radius: 0 10px 10px 0;
+          }
+        }
+      }
+      & + li {
+        margin: 0;
       }
     }
-    & + li {
-      margin: 0;
+  }
+  .radio-list {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    li {
+      & + li {
+        margin-left: 20px;
+      }
     }
   }
-}
 
-.radio-list {
-  display: flex;
-  align-items: center;
-  min-height: 40px;
-  li {
-    & + li {
-      margin-left: 20px;
+  .bullet-txt {
+    position: relative;
+    display: block;
+    font-size: 12px;
+    color: #888;
+    padding-left: 10px;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 3px;
+      height: 3px;
+      background: #bbb;
+      border-radius: 100%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &.dark {
+    background: #212529;
+    input::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.6) !important;
     }
   }
 }

@@ -17,6 +17,7 @@
       <router-link to="/arrayRefactoring" tag="li">Array methods</router-link>
       <router-link to="/pagination" tag="li">component pagination</router-link>
       <router-link to="/formPage" tag="li">form page</router-link>
+      <router-link to="/joinClone" tag="li">join clone coding</router-link>
     </ul>
   </div>
 </template>

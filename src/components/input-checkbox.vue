@@ -125,11 +125,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 120px;
-    height: 50px;
+    width: auto;
+    height: 44px;
     border: solid 1px #212529;
-    background: #343a40;
-    padding: 0;
+    background: #495057;
+    padding: 0 15px;
+    border-radius: 10px;
     margin-right: 10px;
     .icon {
       opacity: 0;
@@ -145,24 +146,24 @@ export default {
       &:before {
         content: '';
         display: block;
-        top: -36px;
-        left: 59px;
+        top: -7px;
+        left: 28px;
         width: 1px;
-        height: 118px;
+        height: 57px;
         background: #868e96;
         position: absolute;
-        transform: rotate(70deg);
+        transform: rotate(55deg);
       }
       &:after {
         content: '';
         display: block;
-        top: -36px;
-        left: 59px;
+        top: -7px;
+        left: 28px;
         width: 1px;
-        height: 118px;
+        height: 57px;
         background: #868e96;
         position: absolute;
-        transform: rotate(109deg);
+        transform: rotate(125deg);
       }
       span {
         opacity: 0.5;
@@ -174,12 +175,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     padding: 15px 22px;
     box-sizing: border-box;
     border: solid 1px #212529;
-    background: #343a40;
+    background: #495057;
     .icon {
       opacity: 0;
     }
@@ -201,7 +202,7 @@ export default {
         top: 0;
         left: 50%;
         width: 1px;
-        height: 50px;
+        height: 44px;
         background: #868e96;
         position: absolute;
         transform: rotate(45deg) translateX(-50%);
@@ -212,7 +213,7 @@ export default {
         top: 0;
         left: 50%;
         width: 1px;
-        height: 50px;
+        height: 44px;
         background: #868e96;
         position: absolute;
         transform: rotate(135deg) translateX(-50%);

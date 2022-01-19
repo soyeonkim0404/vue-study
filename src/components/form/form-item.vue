@@ -19,8 +19,8 @@ export default {
 .item {
   display: flex;
   .key {
-    flex: 0 0 130px;
-    padding-top: 10px;
+    flex: 0 0 180px;
+    padding-top: 15px;
     font-size: 16px;
     color: #fff;
   }

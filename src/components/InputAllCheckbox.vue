@@ -15,7 +15,9 @@ export default {
     weekChkArray() {
       this.$emit(
         'change',
-        this.weekChkArray.length === this.weekDayItems.length
+        this.weekDayItems.length !== 0
+          ? this.weekChkArray.length === this.weekDayItems.length
+          : false
       );
     },
   },

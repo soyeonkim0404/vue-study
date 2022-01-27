@@ -1,10 +1,18 @@
 <template>
-  <span class="select-wrap">
+  <span
+    :class="{
+      'select-wrap': true,
+      disabled: disabled,
+    }"
+  >
     <select
       :name="name"
       v-on="listeners"
       :value="value"
-      :class="{ placeholderStyle: value === placeholder }"
+      :class="{
+        placeholderStyle: value === placeholder,
+      }"
+      :disabled="disabled"
     >
       <option v-if="placeholder" disabled>
         {{ placeholder }}
@@ -19,7 +27,7 @@
 <script>
 export default {
   name: 'form-select',
-  props: ['placeholder', 'options', 'name', 'value'],
+  props: ['placeholder', 'options', 'name', 'value', 'disabled'],
   model: {
     prop: 'value',
     event: 'change',
@@ -77,6 +85,12 @@ export default {
     background-repeat: no-repeat;
     background-size: 15px auto;
     transform: translateY(-50%);
+  }
+  &.disabled {
+    select {
+      background: rgba(0, 0, 0, 0.5);
+      color: rgba(255, 255, 255, 0.2);
+    }
   }
 }
 </style>

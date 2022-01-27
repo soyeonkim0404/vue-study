@@ -76,24 +76,21 @@
               <span class="checkbox-area">
                 <InputAllCheckbox
                   class="all-type2"
-                  v-model="form.weekDayItems.week_allChk.value"
+                  v-model="form.chatOption.allChk.value"
                   :weekDayItems="
-                    form.weekDayItems.text
+                    weekDayItems.text
                       .filter((el) => !el.disabled && !el.dataDisabled)
                       .map((el) => el.value)
                   "
-                  :weekChkArray.sync="form.weekDayItems.weekDay"
-                  :disabled="form.weekDayItems.week_allChk.disabled"
+                  :weekChkArray.sync="form.chatOption.weekDayList"
+                  :disabled="form.chatOption.allChk.disabled"
                 >
                   전체
                 </InputAllCheckbox>
                 <ul class="week-chk">
-                  <li
-                    v-for="(item, index) in form.weekDayItems.text"
-                    :key="index"
-                  >
+                  <li v-for="(item, index) in weekDayItems.text" :key="index">
                     <inputCheckbox
-                      v-model="form.weekDayItems.weekDay"
+                      v-model="form.chatOption.weekDayList"
                       :value="item.value"
                       :disabled="item.disabled"
                       :dataDisabled="item.dataDisabled"
@@ -106,27 +103,92 @@
               </span>
               <span class="time">
                 <formSelect
-                  v-model="form.time.start.value"
-                  :options="form.time.start.options"
-                  :placeholder="form.time.start.placeholder"
-                  :name="form.time.start.name"
+                  v-model="form.chatOption.startTime"
+                  :options="time.start.options"
+                  :placeholder="time.start.placeholder"
+                  :disabled="time.start.disabled"
+                  :name="time.start.name"
                 />
                 <span class="dash">~</span>
                 <formSelect
-                  v-model="form.time.end.value"
-                  :options="form.time.end.options"
-                  :placeholder="form.time.end.placeholder"
-                  :name="form.time.end.name"
+                  v-model="form.chatOption.endTime"
+                  :options="time.end.options"
+                  :placeholder="time.end.placeholder"
+                  :disabled="time.end.disabled"
+                  :name="time.end.name"
                 />
               </span>
             </div>
-            <inputCheckbox
-              v-model="form.weekDayItems.disabledOption.chk"
+            <inputAllDisable
               class="mt10"
-              @formChange="allDisable"
+              v-model="form.chatOption.disabledOption.chk"
+              :weekDayItems="weekDayItems.text"
+              :dataOption="form.chatOption"
+              :dataTime="time"
             >
-              {{ form.weekDayItems.disabledOption.disabledText }}
-            </inputCheckbox>
+              {{ form.chatOption.disabledOption.disabledText }}
+            </inputAllDisable>
+          </template>
+        </form-item>
+        <form-item>
+          <template #label>전화상담 가능 시간</template>
+          <template #val>
+            <div class="form-flex">
+              <span class="checkbox-area">
+                <InputAllCheckbox
+                  class="all-type2"
+                  v-model="form.phoneOption.allChk.value"
+                  :weekDayItems="
+                    weekDayItems.text
+                      .filter((el) => !el.disabled && !el.dataDisabled)
+                      .map((el) => el.value)
+                  "
+                  :weekChkArray.sync="form.phoneOption.weekDayList"
+                  :disabled="form.phoneOption.allChk.disabled"
+                >
+                  {{ form.phoneOption.allChk.label }}
+                </InputAllCheckbox>
+                <ul class="week-chk">
+                  <li v-for="(item, index) in weekDayItems.text" :key="index">
+                    <inputCheckbox
+                      v-model="form.phoneOption.weekDayList"
+                      :value="item.value"
+                      :disabled="item.disabled"
+                      :dataDisabled="item.dataDisabled"
+                      class="type2"
+                    >
+                      {{ item.label }}
+                    </inputCheckbox>
+                  </li>
+                </ul>
+              </span>
+              <span class="time">
+                <formSelect
+                  v-model="form.phoneOption.startTime"
+                  :options="time.start.options"
+                  :placeholder="time.start.placeholder"
+                  :disabled="time.start.disabled"
+                  :name="time.start.name"
+                />
+                <span class="dash">~</span>
+                <formSelect
+                  v-model="form.phoneOption.endTime"
+                  :options="time.end.options"
+                  :placeholder="time.end.placeholder"
+                  :disabled="time.end.disabled"
+                  :name="time.end.name"
+                />
+              </span>
+            </div>
+            <inputAllDisable
+              class="mt10"
+              v-model="form.phoneOption.disabledOption.chk"
+              :weekDayItems="weekDayItems.text"
+              :dataOption="form.phoneOption"
+              :dataTime="time"
+            >
+              {{ form.phoneOption.disabledOption.disabledText }}
+            </inputAllDisable>
           </template>
         </form-item>
       </form>
@@ -140,6 +202,7 @@ import inputText from '@/components/InputText';
 import formSelect from '@/components/form-select';
 import inputCheckbox from '@/components/input-checkbox';
 import InputAllCheckbox from '@/components/InputAllCheckbox';
+import inputAllDisable from '@/components/inputAllDisable';
 export default {
   name: 'join_clone',
   components: {
@@ -148,6 +211,7 @@ export default {
     formSelect,
     inputCheckbox,
     InputAllCheckbox,
+    inputAllDisable,
   },
   data() {
     return {
@@ -185,107 +249,109 @@ export default {
             ],
           },
         },
-        weekDayItems: {
-          week_allChk: {
+        chatOption: {
+          allChk: {
             value: false,
           },
-          weekDay: [],
-          text: [
-            {
-              label: '월',
-              value: 'monday',
-              dataDisabled: true,
-            },
-            {
-              label: '화',
-              value: 'tuesday',
-            },
-            {
-              label: '수',
-              value: 'wednesday',
-            },
-            {
-              label: '목',
-              value: 'thursday',
-            },
-            {
-              label: '금',
-              value: 'friday',
-            },
-            {
-              label: '토',
-              value: 'saturday',
-            },
-            {
-              label: '일',
-              value: 'sunday',
-            },
-          ],
+          weekDayList: [],
           disabledOption: {
             chk: false,
-            disabledText: '대면 상담을 진행하지 않습니다.',
+            disabledText: '채팅상담을 진행하지 않습니다.',
           },
+          startTime: '',
+          endTime: '',
         },
-        time: {
-          start: {
-            value: '',
-            placeholder: '상담시작 시간',
-            name: '상담시작 시간',
-            options: [
-              {
-                value: '09:00',
-                label: '09:00',
-              },
-              {
-                value: '09:30',
-                label: '09:30',
-              },
-            ],
+        phoneOption: {
+          allChk: {
+            value: false,
+            label: 'ALL',
           },
-          end: {
-            value: '',
-            placeholder: '상담종료 시간',
-            name: '상담종료 시간',
-            options: [
-              {
-                value: '18:00',
-                label: '18:00',
-              },
-              {
-                value: '18:30',
-                label: '18:30',
-              },
-            ],
+          weekDayList: [],
+          disabledOption: {
+            chk: false,
+            disabledText: '전화상담을 진행하지 않습니다.',
           },
+          startTime: '',
+          endTime: '',
+        },
+      },
+      weekDayItems: {
+        text: [
+          {
+            label: '월',
+            value: 'monday',
+            dataDisabled: true,
+          },
+          {
+            label: '화',
+            value: 'tuesday',
+          },
+          {
+            label: '수',
+            value: 'wednesday',
+          },
+          {
+            label: '목',
+            value: 'thursday',
+          },
+          {
+            label: '금',
+            value: 'friday',
+          },
+          {
+            label: '토',
+            value: 'saturday',
+          },
+          {
+            label: '일',
+            value: 'sunday',
+          },
+        ],
+      },
+      time: {
+        start: {
+          placeholder: '상담시작 시간',
+          name: '상담시작 시간',
+          options: [
+            {
+              value: '09:00',
+              label: '09:00',
+            },
+            {
+              value: '10:00',
+              label: '10:00',
+            },
+          ],
+        },
+        end: {
+          placeholder: '상담종료 시간',
+          name: '상담종료 시간',
+          options: [
+            {
+              value: '18:00',
+              label: '18:00',
+            },
+            {
+              value: '19:00',
+              label: '19:00',
+            },
+          ],
         },
       },
     };
-  },
-  methods: {
-    allDisable(event) {
-      if (event) {
-        this.form.weekDayItems.week_allChk.disabled = true;
-        const filterArray = this.form.weekDayItems.text.filter(
-          (el) => !el.dataDisabled
-        );
-        filterArray.forEach((el) => (el.disabled = true));
-      } else {
-        this.form.weekDayItems.week_allChk.disabled = false;
-        this.form.weekDayItems.text.forEach((el) => {
-          return (el.disabled = false);
-        });
-      }
-    },
   },
 };
 </script>
 
 <style scoped lang="scss">
 .row {
-  width: 1024px;
+  width: 1200px;
   margin: 0 auto;
   padding: 40px;
   background: #343a40;
+  form {
+    padding: 0;
+  }
 }
 
 h2 {
@@ -293,6 +359,7 @@ h2 {
   line-height: 34px;
   font-weight: bold;
   color: #fff;
+  padding: 0;
 }
 .item {
   margin-top: 50px;
@@ -324,7 +391,7 @@ h2 {
       margin-left: 0;
     }
     .dash {
-      flex: 0 0 25px;
+      flex: 0 0 30px;
       justify-content: center;
       align-items: center;
       display: flex;

@@ -92,11 +92,7 @@
                     <inputCheckbox
                       v-model="form.chatOption.weekDayList"
                       :value="item.value"
-                      :disabled="
-                        form.chatOption.disableList.some(
-                          (el) => el === item.disabled
-                        )
-                      "
+                      :disabled="item.disabled"
                       :dataDisabled="item.dataDisabled"
                       class="type2"
                     >
@@ -157,11 +153,7 @@
                     <inputCheckbox
                       v-model="form.phoneOption.weekDayList"
                       :value="item.value"
-                      :disabled="
-                        form.phoneOption.disableList.some(
-                          (el) => el === item.disabled
-                        )
-                      "
+                      :disabled="item.disabled"
                       :dataDisabled="item.dataDisabled"
                       class="type2"
                     >
@@ -262,7 +254,6 @@ export default {
             value: false,
           },
           weekDayList: [],
-          disableList: [],
           disabledOption: {
             chk: false,
             disabledText: '채팅상담을 진행하지 않습니다.',
@@ -276,7 +267,6 @@ export default {
             label: 'ALL',
           },
           weekDayList: [],
-          disableList: [],
           disabledOption: {
             chk: false,
             disabledText: '전화상담을 진행하지 않습니다.',

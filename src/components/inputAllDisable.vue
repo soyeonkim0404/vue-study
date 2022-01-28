@@ -13,24 +13,16 @@ export default {
       return {
         ...this.$listeners,
         change: (event) => {
-          //console.log(event.target.checked);
+          console.log(this.dataOption);
           if (event.target.checked) {
             this.dataOption.allChk.disabled = true;
             this.dataOption.weekDayList = [];
-
-            this.dataTime.start.disabled = true;
-            this.dataTime.end.disabled = true;
-
-            this.weekDayItems
+            this.dataOption.disableList = this.weekDayItems
               .filter((el) => !el.dataDisabled)
-              .forEach((el) => (el.disabled = true));
+              .map((el) => (el.disabled = true));
           } else {
             this.dataOption.allChk.disabled = false;
-
-            this.dataTime.start.disabled = false;
-            this.dataTime.end.disabled = false;
-
-            this.weekDayItems.forEach((el) => (el.disabled = false));
+            this.dataOption.disableList = [];
           }
           this.$emit('change', event.target.checked);
         },

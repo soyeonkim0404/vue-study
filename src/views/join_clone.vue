@@ -134,7 +134,7 @@
             </inputAllDisable>
           </template>
         </form-item>
-        <form-item>
+        <!--        <form-item>
           <template #label>전화상담 가능 시간</template>
           <template #val>
             <div class="form-flex">
@@ -198,7 +198,7 @@
               {{ form.phoneOption.disabledOption.disabledText }}
             </inputAllDisable>
           </template>
-        </form-item>
+        </form-item>-->
       </form>
     </div>
   </div>

@@ -10,6 +10,7 @@ import arrayRefactoring from '@/views/array-refactoring';
 import dragView from '@/views/drag-view';
 import formPage from '@/views/form-page';
 import joinclone from '@/views/join_clone';
+import appleClone from '@/views/apple-clone';
 
 Vue.use(VueRouter);
 
@@ -64,6 +65,10 @@ export const router = new VueRouter({
       meta: {
         bg: 'dark',
       },
+    },
+    {
+      path: '/appleClone',
+      component: appleClone,
     },
   ],
 });

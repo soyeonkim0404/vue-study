@@ -1,3 +1,4 @@
+
 <template>
   <span
     :class="{
@@ -80,7 +81,7 @@ export default {
     right: 15px;
     width: 15px;
     height: 15px;
-    background-image: url('../assets/images/arrow-down.png');
+    // background-image: url('../assets/images/arrow-down.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 15px auto;

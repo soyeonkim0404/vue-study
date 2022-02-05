@@ -38,6 +38,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   background: #212529;
+  padding: 0 0 100px 0;
   .title {
     display: flex;
     width: 100%;

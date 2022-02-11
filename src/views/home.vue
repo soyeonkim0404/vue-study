@@ -18,7 +18,8 @@
       <router-link to="/pagination" tag="li">component pagination</router-link>
       <router-link to="/formPage" tag="li">form page</router-link>
       <router-link to="/joinClone" tag="li">join clone coding</router-link>
-      <router-link to="/appleClone" tag="li">apple clone coding</router-link>
+      <!--      <router-link to="/appleClone" tag="li">apple clone coding</router-link>-->
+      <router-link to="/quize" tag="li">quize</router-link>
     </ul>
   </div>
 </template>

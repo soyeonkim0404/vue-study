@@ -79,6 +79,7 @@ export default {
 <style scoped lang="scss">
 .input-checkbox {
   position: relative;
+  display: block;
   padding-left: 26px;
   font-size: 14px;
   line-height: 20px;

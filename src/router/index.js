@@ -11,8 +11,8 @@ import dragView from '@/views/drag-view';
 import formPage from '@/views/form-page';
 import joinclone from '@/views/join_clone';
 import appleClone from '@/views/apple-clone';
-import quize from '@/views/quize/index';
-import qzResult from '@/views/quize/result';
+import quiz from '@/views/quiz/index';
+import qzResult from '@/views/quiz/result';
 
 Vue.use(VueRouter);
 
@@ -73,12 +73,18 @@ export const router = new VueRouter({
       component: appleClone,
     },
     {
-      path: '/quize',
-      component: quize,
+      path: '/quiz',
+      component: quiz,
+      meta: {
+        bg: 'dark',
+      },
     },
     {
-      path: '/quize/:seq',
+      path: '/quiz/:seq',
       component: qzResult,
+      meta: {
+        bg: 'dark',
+      },
     },
   ],
 });

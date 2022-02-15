@@ -4,11 +4,11 @@
   </transition>
 </template>
 <script>
-import Intro from '../../components/quize/intro';
-import Step from '../../components/quize/step';
-import Result from '../../components/quize/result';
+import Intro from '../../components/quiz/intro';
+import Step from '../../components/quiz/step';
+import Result from './result';
 export default {
-  name: 'quize-view',
+  name: 'quiz-view',
   components: {
     Intro,
     Step,

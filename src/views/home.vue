@@ -19,7 +19,7 @@
       <router-link to="/formPage" tag="li">form page</router-link>
       <router-link to="/joinClone" tag="li">join clone coding</router-link>
       <!--      <router-link to="/appleClone" tag="li">apple clone coding</router-link>-->
-      <router-link to="/quize" tag="li">quize</router-link>
+      <router-link to="/quiz" tag="li">quiz</router-link>
     </ul>
   </div>
 </template>

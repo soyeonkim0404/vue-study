@@ -7,11 +7,11 @@
         :class="`step-${listItem.seq}`"
         v-show="$store.state.startCardNum === listItem.seq"
       >
-        <span class="title">{{ listItem.seq }} {{ listItem.q }}</span>
+        <span class="title">{{ listItem.q }}</span>
         <ul class="a-list">
           <li v-for="(item, index) in listItem.a" :key="index">
             <button class="btn" @click="nextGo(listItem.seq, item.type)">
-              {{ item.txt }}
+              {{ item.answer }}
             </button>
           </li>
         </ul>
@@ -36,11 +36,32 @@ export default {
       this.nextStep(num);
       this.countType(type);
       if (this.$store.state.quizeEndPoint === num) {
-        this.$router.push(`/quize/${this.$store.state.pageSeq}`);
+        this.$router.push(`quiz/${this.$store.state.pageSeq}`);
       }
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.title {
+  font-size: 2.5rem;
+  font-weight: normal;
+  color: #fff;
+}
+.a-list {
+  li {
+    margin-top: 50px;
+    .btn {
+      font-size: 1rem;
+      background: #be4bdb;
+      padding: 25px 50px;
+      border-radius: 50px;
+      color: #fff;
+    }
+    & + li {
+      margin-top: 30px;
+    }
+  }
+}
+</style>

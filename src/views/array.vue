@@ -1,145 +1,112 @@
 <template>
   <div class="wrap">
-    <div class="lists" v-for="(list, listIndex) in lists" :key="listIndex">
-      <ul class="list">
-        <li v-for="(item, index) in list.word" :key="index">
-          <listBtn :item="item" />
-          <span
-            v-if="listIndex !== 0"
-            @click="moveTo(listIndex, index, -1)"
-            class="icon-left"
-          >
-            <font-awesome-icon icon="angle-left" />
-          </span>
-          <span
-            v-if="listIndex !== lists.length - 1"
-            @click="moveTo(listIndex, index, 1)"
-            class="icon-right"
-          >
-            <font-awesome-icon icon="angle-right" />
-          </span>
-          <!--위아래-->
-          <span class="icon-dup" @click="moveUp(listIndex, index)">
-            <font-awesome-icon icon="angle-double-up" />
-          </span>
-          <span class="icon-up" @click="moveFrom(listIndex, index, -1)">
-            <font-awesome-icon icon="angle-up" />
-          </span>
-          <span class="icon-down" @click="moveFrom(listIndex, index, 1)">
-            <font-awesome-icon icon="angle-down" />
-          </span>
-          <span class="icon-ddown" @click="moveDown(listIndex, index)">
-            <font-awesome-icon icon="angle-double-down" />
-          </span>
-        </li>
-      </ul>
-    </div>
+    <ul
+      v-for="(liItem, array, arrayIdx) in list"
+      :key="array"
+      v-show="liItem.length"
+    >
+      <li v-for="(item, idx) in liItem" :key="idx" class="item">
+        {{ item.val }}
+        <span class="icon-double-up" @click="move(item, idx, 'double-up')">
+        </span>
+        <span class="icon-double-down" @click="move(item, idx, 'double-down')">
+        </span>
+        <span class="icon-up" @click="move(item, idx, 'up')"> </span>
+        <span class="icon-down" @click="move(item, idx, 'down')"> </span>
+        <span
+          class="icon-right"
+          @click="moveTo(array, idx)"
+          v-if="arrayIdx !== Object.keys(list).length - 1"
+        >
+        </span>
+        <span
+          class="icon-left"
+          @click="moveTo(array, idx)"
+          v-if="arrayIdx !== 0"
+        >
+        </span>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import listBtn from '../components/listBtn';
-import { testApi } from '@/api';
-
 export default {
-  name: 'array',
-  components: { listBtn },
+  name: 'arrayRefactoring',
   data() {
     return {
-      lists: [
-        {
-          name: 'array1',
-          word: [
-            { key: 1, val: '딸기' },
-            { key: 2, val: '바나나' },
-            { key: 3, val: '샤인머스켓' },
-            { key: 4, val: '파인애플' },
-            { key: 5, val: '딸기' },
-          ],
-        },
-        {
-          name: 'array3',
-          word: [
-            { key: 1, val: '엣지' },
-            { key: 2, val: '크롬' },
-            { key: 3, val: '사파리' },
-          ],
-        },
-        {
-          name: 'array2',
-          word: [
-            { key: 1, val: '월' },
-            { key: 2, val: '화' },
-            { key: 3, val: '수' },
-            { key: 4, val: '목' },
-            { key: 5, val: '금' },
-            { key: 6, val: '토' },
-            { key: 7, val: '일' },
-          ],
-        },
-      ],
+      list: {
+        array1: [
+          { key: 1, val: '딸기' },
+          { key: 2, val: '바나나' },
+          { key: 3, val: '샤인머스켓' },
+          { key: 4, val: '파인애플' },
+          { key: 5, val: '딸기' },
+        ],
+        array3: [],
+        array2: [
+          { key: 1, val: '월' },
+          { key: 2, val: '화' },
+          { key: 3, val: '수' },
+          { key: 4, val: '목' },
+          { key: 5, val: '금' },
+          { key: 6, val: '토' },
+          { key: 7, val: '일' },
+        ],
+      },
     };
   },
-  created() {
-    this.testCallApi();
-  },
   methods: {
-    async testCallApi() {
-      try {
-        const { data: response } = await testApi({
-          qnaSno: 1,
-        });
-        console.log(response);
-      } catch (error) {
-        console.log(error);
+    move(item, idx, type = 'double-up') {
+      Object.keys(this.list).forEach((array) => {
+        const arrayList = this.list[array];
+        if (arrayList.indexOf(item) >= 0) {
+          const select = arrayList.splice(idx, 1);
+          let result = '';
+          switch (type) {
+            case 'up':
+              result = arrayList.splice(idx - 1, 0, select[0]);
+              break;
+            case 'down':
+              result = arrayList.splice(idx + 1, 0, select[0]);
+              break;
+            case 'double-down':
+              result = arrayList.push(select[0]);
+              break;
+            default:
+              result = arrayList.unshift(select[0]);
+          }
+          return result;
+        }
+      });
+    },
+    moveTo(array, idx) {
+      const select = this.list[array].splice(idx, 1);
+      if (array === 'array1') {
+        this.list.array2.push(select[0]);
+      } else {
+        this.list.array1.push(select[0]);
       }
-    },
-    moveTo(listIndex, index, num) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex + num].word.push(item[0]);
-    },
-    moveFrom(listIndex, index, num) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.splice(index + num, 0, item[0]);
-    },
-    moveUp(listIndex, index) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.unshift(item[0]);
-    },
-    moveDown(listIndex, index) {
-      const item = this.lists[listIndex].word.splice(index, 1);
-      this.lists[listIndex].word.push(item[0]);
     },
   },
 };
 </script>
-
 <style scoped>
-button {
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  font-weight: bold;
-  font-size: 1.5rem;
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  background: #ffe3e3;
+  height: 40px;
 }
 
-.lists + .lists {
-  margin-left: 60px;
+.item:hover {
+  background-color: #ffc9c9;
 }
 
-.lists:nth-child(even) li button {
-  background: #d0ebff;
-  color: #5f3dc4;
-}
-
-.lists:nth-child(even) li:hover button {
-  background: #a5d8ff;
-}
-
-.list {
-  padding: 0;
-  margin: 0;
+ul + ul {
+  margin-left: 30px;
 }
 
 li {
@@ -159,31 +126,41 @@ span[class^='icon'] {
   height: 40px;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.8);
   color: #444;
+  background-color: rgba(255, 255, 255, 0.8);
+  background-repeat: no-repeat;
+  background-size: 15px 15px;
+  background-position: center;
   display: none;
 }
 
 span.icon-right {
+  background-image: url(../assets/images/arrow-right.svg);
   right: 0;
 }
 
 span.icon-left {
+  background-image: url(../assets/images/arrow-left.svg);
   left: 0;
 }
 
-span.icon-dup {
+span.icon-double-up {
+  background-image: url(../assets/images/arrow-double-up.svg);
   left: 40px;
 }
 
 span.icon-up {
+  background-image: url(../assets/images/arrow-up.svg);
   left: 80px;
 }
 
 span.icon-down {
+  background-image: url(../assets/images/arrow-down.svg);
   right: 80px;
 }
-span.icon-ddown {
+
+span.icon-double-down {
+  background-image: url(../assets/images/arrow-double-down.svg);
   right: 40px;
 }
 

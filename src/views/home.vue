@@ -14,7 +14,7 @@
       <router-link to="/todo-list" tag="li">TodoList-App</router-link>
       <router-link to="/calculator" tag="li">Calculator</router-link>
       <router-link to="/address-api" tag="li">Address-api</router-link>
-      <router-link to="/array-refactoring" tag="li">Array methods</router-link>
+      <router-link to="/array" tag="li">Array methods</router-link>
       <router-link to="/form-page" tag="li">form page</router-link>
       <router-link to="/join-clone" tag="li">join clone coding</router-link>
       <router-link to="/quiz" tag="li">quiz</router-link>

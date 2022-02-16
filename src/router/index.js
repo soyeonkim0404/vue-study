@@ -1,12 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/home.vue';
-import Array from '../views/array.vue';
 import AddressApi from '../views/address-api.vue';
 import Calculator from '../views/calculator.vue';
 import TodoList from '@/views/todo-list';
-
-import ArrayRefactoring from '@/views/array-refactoring';
+import Array from '@/views/array';
 import DragView from '@/views/drag-view';
 import FormPage from '@/views/form-page';
 import JoinClone from '@/views/join-clone';
@@ -21,10 +19,6 @@ export const router = new VueRouter({
     {
       path: '/',
       component: Home,
-    },
-    {
-      path: '/array',
-      component: Array,
     },
     {
       path: '/address-api',
@@ -42,8 +36,8 @@ export const router = new VueRouter({
       component: TodoList,
     },
     {
-      path: '/array-refactoring',
-      component: ArrayRefactoring,
+      path: '/array',
+      component: Array,
     },
     {
       path: '/drag-view',

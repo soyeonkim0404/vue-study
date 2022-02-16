@@ -3,16 +3,15 @@ import VueRouter from 'vue-router';
 import Home from '../views/home.vue';
 import Array from '../views/array.vue';
 import AddressApi from '../views/address-api.vue';
-import calculator from '../views/calculator.vue';
-import todolist from '@/views/toodoList';
-import pagination from '@/views/pagination-view';
-import arrayRefactoring from '@/views/array-refactoring';
-import dragView from '@/views/drag-view';
-import formPage from '@/views/form-page';
-import joinclone from '@/views/join_clone';
-import appleClone from '@/views/apple-clone';
-import quiz from '@/views/quiz/index';
-import qzResult from '@/views/quiz/result';
+import Calculator from '../views/calculator.vue';
+import TodoList from '@/views/todo-list';
+
+import ArrayRefactoring from '@/views/array-refactoring';
+import DragView from '@/views/drag-view';
+import FormPage from '@/views/form-page';
+import JoinClone from '@/views/join-clone';
+import Quiz from '@/views/quiz/index';
+import QzResult from '@/views/quiz/result';
 
 Vue.use(VueRouter);
 
@@ -28,63 +27,54 @@ export const router = new VueRouter({
       component: Array,
     },
     {
-      path: '/addressApi',
+      path: '/address-api',
       component: AddressApi,
+      meta: {
+        bg: 'dark',
+      },
     },
     {
       path: '/calculator',
-      component: calculator,
+      component: Calculator,
     },
     {
-      path: '/todolist',
-      component: todolist,
+      path: '/todo-list',
+      component: TodoList,
     },
     {
-      path: '/pagination',
-      component: pagination,
+      path: '/array-refactoring',
+      component: ArrayRefactoring,
+    },
+    {
+      path: '/drag-view',
+      component: DragView,
+    },
+    {
+      path: '/form-page',
+      component: FormPage,
       meta: {
         bg: 'dark',
       },
     },
     {
-      path: '/arrayRefactoring',
-      component: arrayRefactoring,
-    },
-    {
-      path: '/dragView',
-      component: dragView,
-    },
-    {
-      path: '/formPage',
-      component: formPage,
+      path: '/join-clone',
+      component: JoinClone,
       meta: {
         bg: 'dark',
       },
-    },
-    {
-      path: '/joinclone',
-      component: joinclone,
-      meta: {
-        bg: 'dark',
-      },
-    },
-    {
-      path: '/appleClone',
-      component: appleClone,
     },
     {
       path: '/quiz',
-      component: quiz,
+      component: Quiz,
       meta: {
         bg: 'dark',
       },
-    },
-    {
-      path: '/quiz/:seq',
-      component: qzResult,
-      meta: {
-        bg: 'dark',
-      },
+      children: [
+        {
+          path: '/:seq',
+          component: QzResult,
+        },
+      ],
     },
   ],
 });

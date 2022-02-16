@@ -29,6 +29,7 @@ export default {
 
 <style scoped lang="scss">
 .input-text {
+  display: block;
   input {
     display: inline-block;
     width: 100%;

@@ -1,11 +1,11 @@
 <template>
-  <div class="todo">
+  <container>
     <div class="con">
       <Input @addTodo="addTodo" />
       <List :propsdata="todoItems" @removeTodo="removeTodo" />
       <Footer @removeAll="clearAll" />
     </div>
-  </div>
+  </container>
 </template>
 
 <script>
@@ -51,11 +51,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.todo {
-  width: 100%;
-  .con {
-    width: 400px;
-    margin: 0 auto;
-  }
+.con {
+  width: 400px;
+  margin: 0 auto;
 }
 </style>

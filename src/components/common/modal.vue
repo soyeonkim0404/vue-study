@@ -4,19 +4,16 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <slot name="header"> default header </slot>
+            <slot name="header"></slot>
+            <button class="modal-close-button" @click="$emit('close')"></button>
           </div>
 
           <div class="modal-body">
-            <slot name="body"> default body </slot>
+            <slot name="body"></slot>
           </div>
 
           <div class="modal-footer">
-            <slot name="footer">
-              <!--              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>-->
-            </slot>
+            <slot name="footer"></slot>
           </div>
         </div>
       </div>
@@ -49,17 +46,17 @@ export default {
 }
 
 .modal-container {
-  width: 50vw;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
+  width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #f1f3f5;
+  border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
 }
 
-.modal-header h3 {
-  margin-top: 0;
+.modal-header {
+  position: relative;
 }
 
 .modal-body {
@@ -67,11 +64,17 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 40px 0 0;
 }
 
-.modal-default-button {
-  float: right;
+.modal-close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/images/close.svg) no-repeat center;
+  background-size: 100%;
 }
 
 .modal-enter {

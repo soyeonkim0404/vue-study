@@ -206,7 +206,7 @@
 
 <script>
 import formItem from '../components/form/form-item';
-import inputText from '@/components/InputText';
+import inputText from '@/components/common/Input-text';
 import formSelect from '@/components/form-select';
 import inputCheckbox from '@/components/input-checkbox';
 import InputAllCheckbox from '@/components/InputAllCheckbox';

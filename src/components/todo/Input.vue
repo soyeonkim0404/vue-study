@@ -2,7 +2,7 @@
   <div class="todo-top">
     <div class="top">
       <h1>MyTodo</h1>
-      <div class="day">12/15 Wed</div>
+      <div class="day">{{ basicDate() }}</div>
     </div>
     <span class="soyeon"
       >Have a good day!<br />
@@ -10,13 +10,7 @@
     >
     <div class="inputBox">
       <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo" />
-      <span class="addContainer" v-on:click="addTodo">
-        <font-awesome-icon
-          class="addBtn"
-          icon="plus"
-          aria-hidden="true"
-        ></font-awesome-icon>
-      </span>
+      <span class="addContainer" v-on:click="addTodo"> </span>
 
       <modal v-if="showModal" @close="showModal = false">
         <h3 slot="header">경고</h3>
@@ -28,7 +22,7 @@
 </template>
 
 <script>
-import Modal from '../modal.vue';
+import Modal from '../common/modal.vue';
 export default {
   components: {
     Modal,
@@ -81,6 +75,7 @@ export default {
       color: rgba(255, 255, 255, 0.8);
       font-size: 14px;
       font-weight: 400;
+      letter-spacing: 1px;
     }
   }
 
@@ -123,6 +118,18 @@ export default {
     cursor: pointer;
     transform: translateY(-50%);
     border-radius: 40px;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      background: url(../../assets/images/plus.svg) no-repeat center;
+      background-size: 100%;
+      transform: translate(-50%, -50%);
+    }
   }
   .addBtn {
     position: absolute;

@@ -2,15 +2,8 @@
   <section>
     <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem">
-        <!--        <font-awesome-icon class="checkBtn" icon="check" aria-hidden="true" />-->
         {{ todoItem }}
-        <span
-          class="removeBtn"
-          type="button"
-          @click="removeTodo(todoItem, index)"
-        >
-          <font-awesome-icon icon="times" aria-hidden="true" />
-        </span>
+        <span class="removeBtn" @click="removeTodo(todoItem, index)"> </span>
       </li>
     </transition-group>
   </section>
@@ -58,6 +51,7 @@ li {
   margin-right: 5px;
 }
 .removeBtn {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,6 +60,18 @@ li {
   margin-left: auto;
   color: #adb5bd;
   cursor: pointer;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    left: 50%;
+    background: url(../../assets/images/trash.svg) no-repeat center;
+    background-size: 100%;
+    transform: translate(-50%, -50%);
+  }
 }
 .list-enter-active,
 .list-leave-active {

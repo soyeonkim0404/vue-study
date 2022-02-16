@@ -1,7 +1,7 @@
 <template>
   <div class="cal">
     <main>
-      <input type="text" readonly v-model="current" />
+      <input type="text" class="text" readonly v-model="current" />
       <div class="button-wrap">
         <button @click="clear" class="ac">AC</button>
         <button @click="operator('/')">/</button>
@@ -128,5 +128,12 @@ button:hover {
   width: inherit;
   border-radius: 35px;
   margin-right: 0.15rem;
+}
+.text {
+  width: 100%;
+  padding: 0 10px;
+  font-size: 60px;
+  box-sizing: border-box;
+  letter-spacing: 0px;
 }
 </style>

@@ -104,14 +104,14 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px auto;
-    background-image: url('../assets/images/checkbox-off.png');
+    background-image: url('../assets/images/checkbox-off-black.svg');
   }
   span {
     color: #fff;
   }
   &.checked {
     .icon {
-      background-image: url('../assets/images/checkbox-on.png');
+      background-image: url('../assets/images/checkbox-on-black.svg');
     }
   }
   &.disabled {

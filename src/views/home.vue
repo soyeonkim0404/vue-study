@@ -15,9 +15,10 @@
       <router-link to="/calculator" tag="li">Calculator</router-link>
       <router-link to="/address-api" tag="li">Address-api</router-link>
       <router-link to="/array" tag="li">Array methods</router-link>
-      <router-link to="/form-page" tag="li">form page</router-link>
-      <router-link to="/join-clone" tag="li">join clone coding</router-link>
-      <router-link to="/quiz" tag="li">quiz</router-link>
+      <router-link to="/form-page" tag="li">Form page</router-link>
+      <router-link to="/join-clone" tag="li">Join clone coding</router-link>
+      <router-link to="/quiz" tag="li">Quiz</router-link>
+      <router-link to="/full-calendar" tag="li">FullCalendar</router-link>
     </ul>
   </div>
 </template>
@@ -87,6 +88,7 @@ export default {
       color: #f8f9fa;
       font-family: 'Cantata One', serif !important;
       letter-spacing: 4px;
+      line-height: 1.2;
       &:hover {
         opacity: 0.4;
       }

@@ -10,6 +10,7 @@ import FormPage from '@/views/form-page';
 import JoinClone from '@/views/join-clone';
 import Quiz from '@/views/quiz/index';
 import QzResult from '@/views/quiz/result';
+import FullCalendar from '@/views/full-calendar';
 
 Vue.use(VueRouter);
 
@@ -63,12 +64,17 @@ export const router = new VueRouter({
       meta: {
         bg: 'dark',
       },
-      children: [
-        {
-          path: '/:seq',
-          component: QzResult,
-        },
-      ],
+    },
+    {
+      path: '/quiz/:seq',
+      component: QzResult,
+      meta: {
+        bg: 'dark',
+      },
+    },
+    {
+      path: '/full-calendar',
+      component: FullCalendar,
     },
   ],
 });

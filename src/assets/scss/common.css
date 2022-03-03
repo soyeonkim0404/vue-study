@@ -347,12 +347,6 @@ ul {
   align-items: center;
   min-height: 100vh;
 }
-#app .wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
 #app .page-title {
   background: #222;
   color: #fff;

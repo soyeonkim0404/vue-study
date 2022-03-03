@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <container>
     <ul
       v-for="(liItem, array, arrayIdx) in list"
       :key="array"
@@ -27,12 +27,14 @@
         </span>
       </li>
     </ul>
-  </div>
+  </container>
 </template>
 
 <script>
+import Container from '@/components/common/container';
 export default {
   name: 'arrayRefactoring',
+  components: { Container },
   data() {
     return {
       list: {

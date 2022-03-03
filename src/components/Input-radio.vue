@@ -59,14 +59,14 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px auto;
-    background-image: url('../assets/images/radio-off.png');
+    background-image: url('../assets/images/radio-off.svg');
   }
   span {
     color: #fff;
   }
   &.checked {
     .icon {
-      background-image: url('../assets/images/radio-on.png');
+      background-image: url('../assets/images/radio-on.svg');
     }
   }
   &.disabled {

@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <container>
     <div class="row">
       <form-item>
         <template #label>라디오</template>
@@ -65,9 +65,8 @@
         </template>
       </form-item>
     </div>
-  </div>
+  </container>
 </template>
-
 <script>
 import formFile from '../components/form-file';
 import inputCheckbox from '../components/input-checkbox';
@@ -163,11 +162,15 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.wrap {
+  flex-direction: column;
+  align-items: initial;
+}
 .row {
   width: 700px;
   margin: 0 auto;
   padding: 20px;
-  background: #343a40;
+  background: #868e96;
   border-radius: 10px;
 }
 </style>

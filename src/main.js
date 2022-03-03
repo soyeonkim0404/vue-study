@@ -6,7 +6,9 @@ import '../src/assets/scss/common.scss';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import { commonMixin } from '@/mixin/common';
+import vueMoment from 'vue-moment';
 Vue.mixin(commonMixin);
+Vue.use(vueMoment);
 
 // 컴포넌트 전역 등록
 const requireComponent = require.context(

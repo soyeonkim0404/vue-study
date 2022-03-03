@@ -5,7 +5,11 @@
         <div class="month-calendar">
           <FullCalendar :options="calendarOptions" />
         </div>
-        <div class="date-wrap"></div>
+        <div class="date-wrap">
+          <div class="top">
+            {{ $moment(dateString).format('YYYY년 MM월 DD일') }}
+          </div>
+        </div>
       </div>
     </div>
   </container>
@@ -25,6 +29,7 @@ export default {
   },
   data() {
     return {
+      dateString: new Date(),
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         locale: esLocale,
@@ -45,10 +50,17 @@ export default {
           center: 'title',
           end: 'today', // will normally be on the right. if RTL, will be on the left
         },
+        dateClick: this.handleDateClick,
       },
     };
   },
-  methods: {},
+  methods: {
+    handleDateClick: function (arg) {
+      this.dateString = arg.dateStr;
+      console.log(arg.dateStr);
+      //alert('date click! ' + arg.dateStr);
+    },
+  },
 };
 </script>
 
@@ -84,10 +96,11 @@ export default {
           border: none !important;
         }
         .fc-toolbar {
-          padding: 10px 10px 10px 0;
+          padding: 9px 10px 9px 0;
           margin-bottom: 0;
           .fc-toolbar-title {
             font-size: 20px;
+            line-height: 28px;
           }
         }
         .fc-button-primary {
@@ -159,6 +172,13 @@ export default {
     }
     .date-wrap {
       flex: 0 0 263px;
+      .top {
+        padding: 13px 20px;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: bold;
+        border-bottom: 1px solid #eee;
+      }
     }
   }
 }
